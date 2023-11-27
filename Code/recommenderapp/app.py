@@ -44,6 +44,15 @@ class User(UserMixin, db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+class Recommendation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    movie_title = db.Column(db.String(200), nullable=False)
+    recommended_on = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def _repr_(self):
+        return f'<Recommendation {self.movie_title}>'
+
 # Replace 'YOUR_API_KEY' with your actual OMDB API key
 OMDB_API_KEY = 'b726fa05'
 
