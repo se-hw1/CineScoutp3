@@ -153,6 +153,10 @@ def predict():
             movie_with_rating[movie+"-r"]=movie_info['imdbRating']
             movie_with_rating[movie+"-g"]=movie_info['Genre']
             movie_with_rating[movie+"-p"]=movie_info['Poster']
+        new_recommendation = Recommendation(user_id=current_user.id, movie_title=movie)
+        db.session.add(new_recommendation)
+    
+    db.session.commit()
 
     resp = {"recommendations": recommendations, "rating":movie_with_rating}
     return resp
