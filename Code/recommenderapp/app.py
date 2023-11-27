@@ -89,6 +89,27 @@ def register():
 
         return redirect(url_for('landing_page'))
     return render_template('register.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('landing_page'))
+
+    error = None
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        user = User.query.filter_by(username=username).first()  # 'user' is now defined here
+
+        if user is None or not user.check_password(password):
+            error = 'Invalid username or password'
+        else:
+            login_user(user)
+            return redirect(url_for('landing_page'))
+
+    # If we reach this point without returning, 'user' was not assigned due to a POST
+    # Or there was an error in login, handle accordingly
+    return render_template('login.html', error=error)
     
 @app.route("/predict", methods=["POST"])
 # def predict():
