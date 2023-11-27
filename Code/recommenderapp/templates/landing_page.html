@@ -18,7 +18,19 @@
 
 
 <body>
+    <div id="main">
+        {% if current_user.is_authenticated %}
+            <p style="color:#ebe5e6; font-size: 24px; font-weight: bold;">Welcome, {{ current_user.username }}!</p>
+            <a href="{{ url_for('history') }}" class="red-button">View History</a>
+            <a href="{{ url_for('logout') }}" class="red-button">Logout</a>
+        {% else %}
+            <p style="color:#ebe5e6; font-size: 24px; font-weight: bold;">Please <a href="{{ url_for('login') }}" class="red-button">Login</a> or <a href="{{ url_for('register') }}" class="red-button">Register</a></p>
+        {% endif %}
+    </div>
+
+
     <!-- <div class="container"> -->
+        
         <a href="/">
     <div id="errorMessage" class="error-card">
         <div class="error-content">
@@ -46,6 +58,7 @@
                     <label style="color:#ebe5e6; font-weight: bold;">Search Here</label>&nbsp;&nbsp;<input type="text" name="search" id="searchBox" />
                 </p>
                 <h2 style="color:#ebe5e6; font-size: 24px; font-weight: bold;">Selected movies:</h2>
+                <ul id="selectedMovies" class="list-unstyled">
                 <div class="card-container" id="selectedMovies">
                     {% for movie in training_data %}
                     <div class="card">
@@ -56,6 +69,7 @@
                     </div>
                     {% endfor %}
                 </div>
+            </ul>
                 <input type="button" class="btn btn-danger" name="predict" id="predict" value="Predict">
             </div>
             <div class="col-md-6">
@@ -199,6 +213,19 @@
             font-size: 18px;
             cursor: pointer;
         }
+
+        .red-button {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 5px 10px; /* Reduced padding */
+            text-decoration: none;
+            font-size: 16px; /* Optional: Adjust font size if needed */
+            cursor: pointer;
+            display: inline-block; /* Add this to control width */
+            max-width: 120px; /* Set a maximum width for buttons */
+            text-align: center; /* Center text in the button */
+        }
     </style>
 
 </body>
@@ -250,6 +277,19 @@
                 select: function (event, ui) {
                     var ulList = $('#selectedMovies');
                     var li = $('<li/>').text(ui.item.value).appendTo(ulList);
+                    var removeButton = $('<button/>', {
+        text: 'Remove',
+        css: {
+            backgroundColor: 'red',
+            color: 'white',
+            border: 'none',
+            padding: '5px 10px',
+            margin: '5px',
+            borderRadius: '5px',
+            cursor: 'pointer'
+        },
+        click: function () { $(this).parent().remove(); }
+    }).appendTo(li);
                     $('#searchBox').val("");
                     return false;
                 },
@@ -261,7 +301,8 @@
             var movie_list = []
 
             $('#selectedMovies li').each( function () {
-                movie_list.push($(this).text());
+                var movieTitle = $(this).text().split('Remove')[0].trim();
+                movie_list.push(movieTitle);
             });
 
             var movies = {"movie_list": movie_list};
