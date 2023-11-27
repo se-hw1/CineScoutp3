@@ -25,3 +25,16 @@
     
     </style>
 </head>
+<body>
+    <!-- ... existing body elements ... -->
+    <h2 style="color:rgb(249, 248, 248); font-size: 24px; font-weight: bold;">Recommendation History</h2>
+    <ul>
+        {% for rec in recommendations %}
+            <li style="color:#faf9fa; font-size: 20px; font-weight: bold;">{{ rec.movie_title }} - Recommended on: {{ rec.recommended_on }}</li>
+        {% else %}
+            <li style="color:#f4eff0; font-size: 20px; font-weight: bold;">No recommendations found.</li>
+        {% endfor %}
+    </ul>
+    <!-- ... rest of your HTML code ... -->
+</body>
+</html>
