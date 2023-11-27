@@ -110,6 +110,12 @@ def login():
     # If we reach this point without returning, 'user' was not assigned due to a POST
     # Or there was an error in login, handle accordingly
     return render_template('login.html', error=error)
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('landing_page'))
     
 @app.route("/predict", methods=["POST"])
 # def predict():
