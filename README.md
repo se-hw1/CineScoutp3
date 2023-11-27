@@ -45,9 +45,9 @@ Your perfect movie is just a click away. Get started now and make every movie ni
 
 Testing how good the Movie Recommender is :
 
-1. Integration of youtube api to provide trailer for the recommended movies.
-2. Build a new feature that exhibits diversity across genres, casting choices, and production styles.
-3. Allow users to create account and access their account history for previously recommended movies.
+1. Build a new feature that exhibits diversity across genres, casting choices, and production styles.
+2. An email to be sent to users with the list of movies recommended to them
+3. The user accounts can keep a record of the feedback given by them (liked, disliked or yet to watch).
 
 
 Note: Our system can be virtually tested through Github Actions inbuilt feature of build and test queries using python.
@@ -66,10 +66,12 @@ Make sure you taste your own medicine first and take into account other peoples 
 
 ## Working 📱
 
-- Below working displays the system also evaluates movie attributes such as genre, cast, director, and user-generated reviews. 
+Below working displays the system also evaluates movie attributes such as genre, cast, director, and user-generated reviews. 
 - By combining these user-specific data and film characteristics, the recommender system employs machine learning to generate tailored movie recommendations.
-- This enables users to discover new films that align with their individual tastes, making the movie-watching experience more enjoyable and engaging. 
+- This enables users to discover new films that align with their individual tastes, making the movie-watching experience more enjoyable and engaging.
+- The users can directly watch the trailer of any movie recommended to them. 
 - Furthermore, recommender systems often employ a feedback loop, where users' interactions and feedback help refine the recommendations over time, ensuring that the suggestions remain relevant.
+- The users can register and log in to their accounts to keep a history of the movies recommended for them.
 
 ![Demo](https://github.com/MadhurDixit13/MovieRecommender/blob/master/asset/Front-page.gif?raw=true)<br><br>
 
