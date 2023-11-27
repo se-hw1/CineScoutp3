@@ -10,6 +10,7 @@ import time
 import requests
 from datetime import datetime
 
+
 sys.path.append("../../")
 from Code.prediction_scripts.item_based import recommendForNewUser
 from search import Search
@@ -22,8 +23,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 db = SQLAlchemy(app)
-
-
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -39,19 +38,20 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-
+    
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
+    
 class Recommendation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     movie_title = db.Column(db.String(200), nullable=False)
     recommended_on = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def _repr_(self):
+    def __repr__(self):
         return f'<Recommendation {self.movie_title}>'
+
 
 # Replace 'YOUR_API_KEY' with your actual OMDB API key
 OMDB_API_KEY = 'b726fa05'
@@ -111,12 +111,15 @@ def login():
     # Or there was an error in login, handle accordingly
     return render_template('login.html', error=error)
 
+
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('landing_page'))
-    
+
+
+
 @app.route("/predict", methods=["POST"])
 # def predict():
 #     data = json.loads(request.data)  # contains movies
@@ -153,6 +156,7 @@ def predict():
             movie_with_rating[movie+"-r"]=movie_info['imdbRating']
             movie_with_rating[movie+"-g"]=movie_info['Genre']
             movie_with_rating[movie+"-p"]=movie_info['Poster']
+        
         new_recommendation = Recommendation(user_id=current_user.id, movie_title=movie)
         db.session.add(new_recommendation)
     
@@ -166,7 +170,8 @@ def predict():
 def history():
     recommendations = Recommendation.query.filter_by(user_id=current_user.id).all()
     return render_template('history.html', recommendations=recommendations)
-    
+
+
 @app.route("/search", methods=["POST"])
 def search():
     term = request.form["q"]
