@@ -18,7 +18,16 @@ import requests
 
 app = Flask(__name__)
 app.secret_key = "secret key"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 CORS(app, resources={r"/*": {"origins": "*"}})
+
+db = SQLAlchemy(app)
+
+
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 # Replace 'YOUR_API_KEY' with your actual OMDB API key
 OMDB_API_KEY = 'b726fa05'
