@@ -161,6 +161,12 @@ def predict():
     resp = {"recommendations": recommendations, "rating":movie_with_rating}
     return resp
 
+@app.route("/history")
+@login_required
+def history():
+    recommendations = Recommendation.query.filter_by(user_id=current_user.id).all()
+    return render_template('history.html', recommendations=recommendations)
+    
 @app.route("/search", methods=["POST"])
 def search():
     term = request.form["q"]
