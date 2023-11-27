@@ -10,11 +10,35 @@ warnings.filterwarnings("ignore")
 
 
 def recommendForNewUser(user_rating):
+
+    if not user_rating:
+        return []
+
+    # Check for invalid rating values
+    invalid_ratings = [rating for rating in user_rating if rating["rating"] is None or rating["rating"] < 0.0 or rating["rating"] > 5.0]
+    if invalid_ratings:
+        return []  # Return an empty list if there are invalid ratings
+        
     ratings = pd.read_csv(project_dir + "/data/ratings.csv")
     movies = pd.read_csv(project_dir + "/data/movies.csv")
     user = pd.DataFrame(user_rating)
+
+    # Strip leading and trailing spaces from titles
+    user["title"] = user["title"].str.strip()
+    movies["title"] = movies["title"].str.strip()
+
     userMovieID = movies[movies["title"].isin(user["title"])]
     userRatings = pd.merge(userMovieID, user)
+
+    # Check for too long movie titles
+    max_title_length = 255  # Set your desired maximum title length
+    if any(len(title) > max_title_length for title in user["title"]):
+        return []  # Return an empty list if any title is too long
+
+     # Ensure that the "title" key exists in each rating dictionary
+    user = user[user["title"].isin(movies["title"])] if "title" in user.columns else pd.DataFrame()
+    if user.empty:
+        return []  # Return an empty list if no valid movie titles are found in the input
 
     moviesGenreFilled = movies.copy(deep=True)
     copyOfMovies = movies.copy(deep=True)
