@@ -74,7 +74,22 @@ def get_movie_info(title):
 def landing_page():
     return render_template("landing_page.html")
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('landing_page'))
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
 
+        user = User(username=username)
+        user.set_password(password)
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('landing_page'))
+    return render_template('register.html')
+    
 @app.route("/predict", methods=["POST"])
 # def predict():
 #     data = json.loads(request.data)  # contains movies
