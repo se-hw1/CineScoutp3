@@ -1,9 +1,14 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_cors import CORS, cross_origin
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 import json
 import sys
 import csv
 import time
+import requests
+from datetime import datetime
 
 sys.path.append("../../")
 from Code.prediction_scripts.item_based import recommendForNewUser
