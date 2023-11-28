@@ -73,7 +73,7 @@ Below working displays the system also evaluates movie attributes such as genre,
 - Furthermore, recommender systems often employ a feedback loop, where users' interactions and feedback help refine the recommendations over time, ensuring that the suggestions remain relevant.
 - The users can register and log in to their accounts to keep a history of the movies recommended for them.
 
-![Demo](https://github.com/MadhurDixit13/MovieRecommender/blob/master/asset/Front-page.gif?raw=true)<br><br>
+
 
 
 
