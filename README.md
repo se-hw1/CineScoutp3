@@ -140,7 +140,7 @@ JavaScript is a versatile and widely used programming language for adding intera
 
 
 ## Documentation 📚
-Refer to Wiki page [here](https://github.com/MadhurDixit13/MovieRecommender/wiki/Documentation)
+Refer to Wiki page [here](https://github.com/ebanigogia/MovieRecommender/wiki)
 
 
 ## Bug? 🐛
