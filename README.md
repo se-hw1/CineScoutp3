@@ -57,7 +57,7 @@ Make sure you taste your own medicine first and take into account other peoples 
 
 ## Video ▶️ 
 
-[![Watch the video](https://markdown-videos-api.jorgenkh.no/youtube/uYQ4t7GOEyU)](https://youtu.be/uYQ4t7GOEyU)
+[![Watch the video](https://markdown-videos-api.jorgenkh.no/youtube/303Q73iKKPw)](https://youtu.be/303Q73iKKPw)
 
 
 
