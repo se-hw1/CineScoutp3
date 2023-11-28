@@ -142,6 +142,8 @@ JavaScript is a versatile and widely used programming language for adding intera
 ## Documentation 📚
 Refer to Wiki page [here](https://github.com/ebanigogia/MovieRecommender/wiki)
 
+## Chat Channel 🗣️
+Refer to our chats [here](https://discord.com/channels/1164337248746082394/1164337249387823152)
 
 ## Bug? 🐛
 Raise a issue on this repository, we would love to look at it ❤️
