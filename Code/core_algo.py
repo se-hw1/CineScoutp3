@@ -36,7 +36,7 @@ def core_algo(list_movies, csv_file):
     return recommendations
 
 list_movies = ['Seven (a.k.a. Se7en) (1995)']
-csv_file_path = '/workspaces/CineScout/Code/text based approach/movies_metadata.csv'
+csv_file_path = '../data/movies.csv'
 recommendations = core_algo(list_movies, csv_file_path)
 
 
@@ -58,6 +58,6 @@ def recommend_by_all_genres(list_genres, csv_file):
     return matching_movies[:50]
 
 list_genres = ['Mystery', 'Thriller','Comedy'] 
-csv_file_path = '/content/movies.csv'
+csv_file_path = '../data/movies.csv'
 recommended_movies = recommend_by_all_genres(list_genres, csv_file_path)
 
