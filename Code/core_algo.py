@@ -40,3 +40,28 @@ csv_file_path = '/workspaces/CineScout/Code/text based approach/movies_metadata.
 recommendations = core_algo(list_movies, csv_file_path)
 print(recommendations)
 
+
+def recommend_by_all_genres(list_genres, csv_file):
+
+    matching_movies = [] 
+
+    with open(csv_file, mode='r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+        
+        for rows in reader:
+            movie_title = rows['title']
+            genres = rows['genres'].split('|') 
+            
+            # if the movie contains all genres
+            if all(genre in genres for genre in list_genres):
+                matching_movies.append(movie_title)
+
+    return matching_movies[:50]
+
+list_genres = ['Mystery', 'Thriller','Comedy'] 
+csv_file_path = '/content/movies.csv'
+recommended_movies = recommend_by_all_genres(list_genres, csv_file_path)
+
+for i in recommended_movies:
+  print(i)
+
