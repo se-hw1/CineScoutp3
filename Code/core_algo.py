@@ -12,21 +12,18 @@ def core_algo(list_movies, csv_file):
         
         for row in reader:
             movie_title = row['title']
-            genres = row['genres'].split('|')  # Split separated by '|'
+            genres = row['genres'].split('|')  
             
-            # Check movie is in watch history
             if movie_title in watched_movies:
                 for genre in genres:
-                    genre_count[genre] += 1  # Increment count for each watched movie's genre
+                    genre_count[genre] += 1 
             
-            # Store all movies for recommendation
             for genre in genres:
                 genre_movies[genre].append(movie_title)
 
     sorted_genres = sorted(genre_count.items(), key=lambda x: x[1], reverse=True)
-    top_genres = [genre for genre, count in sorted_genres[:10]]  # Get top genres based on watched history
+    top_genres = [genre for genre, count in sorted_genres[:10]]  
 
-    #Recommend excluding already watched movies
     recommendations = []
     
     for genre in top_genres:
@@ -39,6 +36,7 @@ def core_algo(list_movies, csv_file):
     return recommendations
 
 list_movies = ['Seven (a.k.a. Se7en) (1995)']
-csv_file_path = '/content/movies.csv'
+csv_file_path = '/workspaces/CineScout/Code/text based approach/movies_metadata.csv'
 recommendations = core_algo(list_movies, csv_file_path)
 print(recommendations)
+
