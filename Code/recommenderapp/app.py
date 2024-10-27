@@ -17,6 +17,7 @@ from search import Search
 
 import requests
 
+# initial app setup
 app = Flask(__name__)
 app.secret_key = "secret key"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
@@ -28,170 +29,123 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+
+# database schema setup
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
     password_hash = db.Column(db.String(200))
-
+    newuser = db.Column(db.Integer, default=1)
+    
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-    
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-    
+
 class Recommendation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     movie_title = db.Column(db.String(200), nullable=False)
     recommended_on = db.Column(db.DateTime, default=datetime.utcnow)
+    watched = db.Column(db.Integer, default=0)
 
     def __repr__(self):
         return f'<Recommendation {self.movie_title}>'
 
+# user management
 
-# Replace 'YOUR_API_KEY' with your actual OMDB API key
-OMDB_API_KEY = 'b726fa05'
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
-def get_movie_info(title):
-    index=len(title)-6
-    url = f"http://www.omdbapi.com/?t={title[0:index]}&apikey={OMDB_API_KEY}"
-    print(url)
-    response = requests.get(url)
-    if response.status_code == 200:
-        res=response.json()
-        if(res['Response'] == "True"):
-            return res
-        else:  
-            return { 'Title': title, 'imdbRating':"N/A", 'Genre':'N/A',"Poster":"https://www.creativefabrica.com/wp-content/uploads/2020/12/29/Line-Corrupted-File-Icon-Office-Graphics-7428407-1.jpg"}
-    else:
-        return  { 'Title': title, 'imdbRating':"N/A",'Genre':'N/A', "Poster":"https://www.creativefabrica.com/wp-content/uploads/2020/12/29/Line-Corrupted-File-Icon-Office-Graphics-7428407-1.jpg"}
-
-@app.route("/")
-def landing_page():
-    return render_template("landing_page.html")
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('landing_page'))
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-
-        user = User(username=username)
-        user.set_password(password)
-        db.session.add(user)
-        db.session.commit()
-
-        return redirect(url_for('landing_page'))
-    return render_template('register.html')
-
-@app.route('/login', methods=['GET', 'POST'])
+@app.route("/login")
 def login():
+    err = None
     if current_user.is_authenticated:
-        return redirect(url_for('landing_page'))
-
-    error = None
-    if request.method == 'POST':
+        return jsonify({"code" : 201, "redirect_url_key" : "HOME"})
+        # redirect to landing page
+        
+    else:
         username = request.form.get('username')
         password = request.form.get('password')
         user = User.query.filter_by(username=username).first()  # 'user' is now defined here
-
-        if user is None or not user.check_password(password):
-            error = 'Invalid username or password'
+        errcode = 200
+        err = ''
+        redir_key = "HOME"
+        if user is None:
+            redir_key = "REGISTER"
+            errcode = 400
+            err = 'Invalid username. please register.'
+        elif not user.check_password(password):
+            redir_key = "LOGIN"
+            errcode = 400
+            err = 'Invalid password. please check your password.'
         else:
             login_user(user)
-            return redirect(url_for('landing_page'))
-
-    # If we reach this point without returning, 'user' was not assigned due to a POST
-    # Or there was an error in login, handle accordingly
-    return render_template('login.html', error=error)
-
+        return jsonify({"code" : errcode, "redirect_url_key" : redir_key, "errstring" : err})
 
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('landing_page'))
+    return redirect("login.html")
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return jsonify({"code" : 201, "redirect_url_key" : "HOME"})
+    else:
+        if request.method == 'POST':
+            username = request.form.get('username')
+            password = request.form.get('password')
+            if (len(User.query.filter_by(username = username).all()) == 0):
+                user = User(username=username)
+                user.set_password(password)
+                db.session.add(user)
+                db.session.commit()
+                return jsonify({"code" : 201, "redirect_url_key" : "LOGIN"})
+            else:
+                return jsonify({"code" : 400, "redirect_url_key" : "REGISTER"})
+            
+# backend modification and querying api calls
 
-
-@app.route("/predict", methods=["POST"])
-# def predict():
-#     data = json.loads(request.data)  # contains movies
-#     data1 = data["movie_list"]
-#     training_data = []
-#     for movie in data1:
-#         movie_with_rating = {"title": movie, "rating": 5.0}
-#         training_data.append(movie_with_rating)
-#     recommendations = recommendForNewUser(movie_with_rating)
+@app.route("/registeruserprefs")
+def registeruserprefs():
+    genrelist = json.loads(request.data)['genre_list']
+    movielist = []
+    #  Run genre based recommendation algorithm
+    #  movielist = recommendMoviesNew(genrelist)
+    for movie in movielist:
+        rec = Recommendation(user_id = current_user.id, movie_title = movie.title)
+        db.session.add(rec)
+        db.session.commit()
     
-#     for movie in data1:    
-#         movie_info = get_movie_info(movie)
-#         if movie_info:
-#             movie_with_rating["title"]=movie
-#             movie_with_rating["rating"]=movie_info["imdbRating"]
+    return jsonify({"movie_list" : movielist})
+
+def raw_getmovielist():
+    all_watched_movies = Recommendation.query(Recommendation.movie_title)\
+                                .filter_by(user_id=current_user.id)\
+                                .filter_by(watched=1).all()\
     
-#     recommendations = recommendations[:10]
-#     resp = {"recommendations": recommendations}
-#     return resp
-def predict():
-    data = json.loads(request.data)  # contains movies
-    data1 = data["movie_list"]
-    training_data = []
-    for movie in data1:
-        movie_with_rating = {"title": movie, "rating": 5.0}
-        training_data.append(movie_with_rating)
-    recommendations = recommendForNewUser(training_data)
-    recommendations = recommendations[:10]
+    recommended_movies = []
+    #  Run movie based recommendation algorithm
+    # recommended_movies = core_algo(all_watched_movies)
+    return {"movie_list" : recommended_movies}
 
-    for movie in recommendations:
-        movie_info = get_movie_info(movie)
-        # print(movie_info['imdbRating'])
-        if movie_info:
-            movie_with_rating[movie+"-r"]=movie_info['imdbRating']
-            movie_with_rating[movie+"-g"]=movie_info['Genre']
-            movie_with_rating[movie+"-p"]=movie_info['Poster']
-        
-        new_recommendation = Recommendation(user_id=current_user.id, movie_title=movie)
-        db.session.add(new_recommendation)
+# get recommended movie list based on history
+@app.route("/getmovielist")
+def getmovielist():
+    return jsonify(raw_getmovielist())
     
-    db.session.commit()
 
-    resp = {"recommendations": recommendations, "rating":movie_with_rating}
-    return resp
-
-@app.route("/history")
-@login_required
-def history():
-    recommendations = Recommendation.query.filter_by(user_id=current_user.id).all()
-    return render_template('history.html', recommendations=recommendations)
-
-
-@app.route("/search", methods=["POST"])
-def search():
-    term = request.form["q"]
-    search = Search()
-    filtered_dict = search.resultsTop10(term)
-    resp = jsonify(filtered_dict)
-    resp.status_code = 200
-    return resp
-
-@app.route("/feedback", methods=["POST"])
-def feedback():
-    data = json.loads(request.data)
-    with open(f"experiment_results/feedback_{int(time.time())}.csv", "w") as f:
-        for key in data.keys():
-            f.write(f"{key} - {data[key]}\n")
-    return data
-
-@app.route("/success")
-def success():
-    return render_template("success.html")
+@app.route("/updatehistory")
+def watchmovie():
+    moviename = json.loads(request.data)["movie_title"]
+    Recommendation.query.filter_by(user_id = current_user.id)\
+                        .filter_by(movie_title = moviename)\
+                        .update({"watched" : 1})
 
 if __name__ == "__main__":
     with app.app_context():
