@@ -29,7 +29,8 @@ jobs:
           pip install -U pytest-cov
       - name: Run tests and generate coverage
         run: |
-          pytest --cov=.
+          chmod +x ${GITHUB_WORKSPACE}/.github/test.sh;
+          bash ${GITHUB_WORKSPACE}/.github/test.sh;
 
       - name: Upload coverage report to coveralls
         uses: coverallsapp/github-action@v2.3.4
