@@ -21,9 +21,11 @@ jobs:
         pip install pylint
         pip install -U Flask
         pip install -U flask-cors
-        pip install pytest
+        pip install -U flask-sqlalchemy
+        pip install -U flask-login
+        pip install -U pytest
     - name: Running test cases for api
       run: |
-        chmod +x ./.github/test.sh;
+        chmod +x ${GITHUB_WORKSPACE}/.github/test.sh;
         bash test.sh;
           

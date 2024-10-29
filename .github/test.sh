@@ -4,4 +4,4 @@ PID=`echo $!`
 cd ../..;
 pytest
 kill -9 ${PID}
-rm -rf src/backend/instance
+rm -rvf src/backend/instance
