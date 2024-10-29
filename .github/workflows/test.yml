@@ -27,5 +27,6 @@ jobs:
     - name: Running test cases for api
       run: |
         chmod +x ${GITHUB_WORKSPACE}/.github/test.sh;
-        bash test.sh;
+        bash ${GITHUB_WORKSPACE}/.github/test.sh;
+
           
