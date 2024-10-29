@@ -23,6 +23,7 @@ jobs:
         pip install -U flask-cors
         pip install -U flask-sqlalchemy
         pip install -U flask-login
+        pip install -U requests
         pip install -U pytest
     - name: Running test cases for api
       run: |
