@@ -22,5 +22,8 @@ jobs:
         pip install -U Flask
         pip install -U flask-cors
         pip install pytest
-    - name: Running test cases for searching
-      run: pytest
+    - name: Running test cases for api
+      run: |
+        chmod +x ./.github/workflows/test.sh;
+        bash test.sh;
+          
