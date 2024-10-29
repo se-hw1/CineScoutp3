@@ -24,6 +24,6 @@ jobs:
         pip install pytest
     - name: Running test cases for api
       run: |
-        chmod +x ./.github/workflows/test.sh;
+        chmod +x ./.github/test.sh;
         bash test.sh;
           
