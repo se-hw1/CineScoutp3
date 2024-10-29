@@ -28,7 +28,7 @@ jobs:
       - name: Run tests and generate coverage
         run: |
           cd test
-          pytest --cov=CineSoout
+          pytest --cov=.
 
       - name: Upload coverage report to coveralls
         uses: coverallsapp/github-action@v2.3.4
