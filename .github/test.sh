@@ -4,5 +4,6 @@ PID=`echo $!`
 cd ../..;
 sleep 5
 pytest --cov=.
-kill -9 $PID
+kill -s SIGTERM $PID
+sleep 2
 rm -rvf src/backend/instance
