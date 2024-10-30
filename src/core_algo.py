@@ -62,9 +62,9 @@ def core_algo(list_movies, csv_file):
     
     return [proc_movie_string(rec) for rec in recommendations]
 
-list_movies = ['Seven (a.k.a. Se7en) (1995)']
-csv_file_path = '../data/movies.csv'
-recommendations = core_algo(list_movies, csv_file_path)
+# list_movies = ['Seven (a.k.a. Se7en) (1995)']
+# csv_file_path = '../data/movies.csv'
+# recommendations = core_algo(list_movies, csv_file_path)
 
 def surprise_me(watched_list, csv_file):
     genre_count = defaultdict(int)
@@ -117,7 +117,7 @@ def recommend_by_all_genres(list_genres, csv_file):
 
 
 
-list_genres = ['Mystery', 'Thriller','Comedy'] 
-csv_file_path = '../data/movies.csv'
-recommended_movies = recommend_by_all_genres(list_genres, csv_file_path)
+# list_genres = ['Mystery', 'Thriller','Comedy']
+# csv_file_path = '../data/movies.csv'
+# recommended_movies = recommend_by_all_genres(list_genres, csv_file_path)
 
