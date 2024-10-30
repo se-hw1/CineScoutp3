@@ -32,7 +32,7 @@ jobs:
         bash ${GITHUB_WORKSPACE}/.github/test.sh ${GITHUB_WORKSPACE};
         coverage combine ${GITHUB_WORKSPACE}/src/backend/.coverage ${GITHUB_WORKSPACE}/.coverage;
     - name: Upload coverage report to coveralls
-        uses: coverallsapp/github-action@v2.3.4
+      uses: coverallsapp/github-action@v2.3.4
 
 
           
