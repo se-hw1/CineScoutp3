@@ -66,6 +66,37 @@ list_movies = ['Seven (a.k.a. Se7en) (1995)']
 csv_file_path = '../data/movies.csv'
 recommendations = core_algo(list_movies, csv_file_path)
 
+def surprise_me(watched_list, csv_file):
+    genre_count = defaultdict(int)
+    genre_movies = defaultdict(list)
+    watched_movies = set(watched_list)
+
+    with open(csv_file, mode='r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            movie_title = row['title']
+            genres = row['genres'].split('|')
+
+            if movie_title in watched_movies:
+                for genre in genres:
+                    genre_count[genre] += 1
+
+            for genre in genres:
+                genre_movies[genre].append(movie_title)
+
+    sorted_genres = sorted(genre_count.items(), key=lambda x: x[1])
+    bottom_genres = [genre for genre, count in sorted_genres[:5]]
+
+    recommendations = []
+
+    for genre in bottom_genres:
+        for movie in genre_movies[genre]:
+            if movie not in watched_movies:
+                recommendations.append(movie)
+                if len(recommendations) >= 10:
+                    return [proc_movie_string(rec) for rec in recommendations]
+    return [proc_movie_string(rec) for rec in recommendations]
 
 
 def recommend_by_all_genres(list_genres, csv_file):
