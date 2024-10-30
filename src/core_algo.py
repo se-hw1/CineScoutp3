@@ -1,6 +1,33 @@
 import csv
 from collections import defaultdict
 
+
+def put_article_first(movtitle):
+    art = movtitle.split(",")
+    AThe = ''
+    if len(art) > 1:
+        AThe = art[-1].strip() + ' '
+    title = ''.join(movtitle.split(",")[0:len(art)-1])
+    if (AThe == 'A ' or AThe == "The ") :
+        return AThe + title
+    else:
+        return movtitle
+
+def proc_movie_string(movie):
+    l = len(movie)
+    ltitle = l - 6
+    movtitle = movie[0:ltitle].strip()
+    year = movie[l - 5 : l - 1]
+    translated_titles = movtitle.split("(")
+
+    if (len(translated_titles) == 1):
+
+        return put_article_first(movtitle), year
+    else:
+        engtitle = put_article_first(translated_titles[0])
+        return engtitle, year
+
+
 def core_algo(list_movies, csv_file):
     
     genre_count = defaultdict(int)  
@@ -31,9 +58,9 @@ def core_algo(list_movies, csv_file):
             if movie not in watched_movies:
                 recommendations.append(movie)
                 if len(recommendations) >= 10: 
-                    return recommendations
+                    return [proc_movie_string(rec) for rec in recommendations]
     
-    return recommendations
+    return [proc_movie_string(rec) for rec in recommendations]
 
 list_movies = ['Seven (a.k.a. Se7en) (1995)']
 csv_file_path = '../data/movies.csv'
@@ -55,7 +82,9 @@ def recommend_by_all_genres(list_genres, csv_file):
             if all(genre in genres for genre in list_genres):
                 matching_movies.append(movie_title)
 
-    return matching_movies[:50]
+    return [proc_movie_string(rec) for rec in matching_movies[:50]]
+
+
 
 list_genres = ['Mystery', 'Thriller','Comedy'] 
 csv_file_path = '../data/movies.csv'
