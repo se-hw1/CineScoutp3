@@ -148,6 +148,7 @@ def watchmovie():
     Recommendation.query.filter_by(user_id = current_user.id)\
                         .filter_by(movie_title = moviename)\
                         .update({"watched" : 1})
+    db.session.commit()
 
 if __name__ == "__main__":
     with app.app_context():
