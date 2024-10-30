@@ -7,22 +7,16 @@ import json
 import sys
 from datetime import datetime
 
-#comment
-
-sys.path.append("../../")
-
-
 # initial app setup
 app = Flask(__name__)
 app.secret_key = "secret key"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, supports_credentials=True)
 
 db = SQLAlchemy(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'
 
 
 # database schema setup
