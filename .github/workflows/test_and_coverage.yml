@@ -29,6 +29,10 @@ jobs:
     - name: Running test cases for api
       run: |
         chmod +x ${GITHUB_WORKSPACE}/.github/test.sh;
-        bash ${GITHUB_WORKSPACE}/.github/test.sh;
+        bash ${GITHUB_WORKSPACE}/.github/test.sh ${GITHUB_WORKSPACE};
+        coverage combine {GITHUB_WORKSPACE}/src backend/.coverage .coverage;
+    - name: Upload coverage report to coveralls
+        uses: coverallsapp/github-action@v2.3.4
+
 
           
