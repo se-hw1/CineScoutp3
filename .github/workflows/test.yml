@@ -25,6 +25,7 @@ jobs:
         pip install -U flask-login
         pip install -U requests
         pip install -U pytest
+        pip install -U pytest-cov
     - name: Running test cases for api
       run: |
         chmod +x ${GITHUB_WORKSPACE}/.github/test.sh;

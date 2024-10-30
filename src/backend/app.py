@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, redirect
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -75,9 +75,9 @@ def login():
             errcode = 401
             err = 'Invalid password. please check your password.'
         else:
-            b = login_user(user)
-            print("b", b)
-            
+            login_user(user)
+            if (user.newuser):
+                redir_key = "PREFS"
         return jsonify({"code" : errcode, "redirect_url_key" : redir_key, "errstring" : err})
 
 @app.route('/logout')
@@ -112,16 +112,21 @@ def registeruserprefs():
     #  Run genre based recommendation algorithm
     #  movielist = recommendMoviesNew(genrelist)
     for movie in movielist:
-        rec = Recommendation(user_id = current_user.id, movie_title = movie.title)
+        rec = Recommendation(user_id = current_user.id, movie_title = movie)
         db.session.add(rec)
         db.session.commit()
     
     return jsonify({"movie_list" : movielist})
 
 def raw_getmovielist():
-    all_watched_movies = Recommendation.query(Recommendation.movie_title)\
+    if (current_user.newuser):
+        all_watched_movies = Recommendation.query(Recommendation.movie_title)\
                                 .filter_by(user_id=current_user.id)\
-                                .filter_by(watched=1).all()\
+                                .all()
+    else:
+        all_watched_movies = Recommendation.query(Recommendation.movie_title)\
+                                .filter_by(user_id=current_user.id)\
+                                .filter_by(watched=1).all()
     
     recommended_movies = []
     #  Run movie based recommendation algorithm
@@ -136,6 +141,9 @@ def getmovielist():
 
 @app.route("/updatehistory")
 def watchmovie():
+    if (current_user.newuser):
+        User.query.filter_by(id=current_user.id).update({"newuser" : 0})
+    
     moviename = json.loads(request.data)["movie_title"]
     Recommendation.query.filter_by(user_id = current_user.id)\
                         .filter_by(movie_title = moviename)\
