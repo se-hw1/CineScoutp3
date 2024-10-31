@@ -1,7 +1,6 @@
 import csv
 from collections import defaultdict
 
-
 def put_article_first(movtitle):
     art = movtitle.split(",")
     AThe = ''
@@ -30,7 +29,6 @@ def proc_movie_string(movie):
     else:
         engtitle = put_article_first(translated_titles[0])
         return engtitle, year
-
 
 def core_algo(list_movies, csv_file):
     
@@ -66,10 +64,6 @@ def core_algo(list_movies, csv_file):
     
     return [(rec, proc_movie_string(rec)) for rec in recommendations]
 
-# list_movies = ['Seven (a.k.a. Se7en) (1995)']
-# csv_file_path = '../data/movies.csv'
-# recommendations = core_algo(list_movies, csv_file_path)
-
 def surprise_me(watched_list, csv_file):
     genre_count = defaultdict(int)
     genre_movies = defaultdict(list)
@@ -101,7 +95,6 @@ def surprise_me(watched_list, csv_file):
                 if len(recommendations) >= 10:
                     return [(rec, proc_movie_string(rec)) for rec in recommendations]
     return [(rec, proc_movie_string(rec)) for rec in recommendations]
-
 
 def recommend_by_all_genres(list_genres, csv_file):
 
@@ -152,9 +145,3 @@ def sort_year(y_order, csv_file):
         years = [p[1] for p in title_list]
 
     return matching_movies, years
-
-
-# list_genres = ['Mystery', 'Thriller','Comedy']
-# csv_file_path = '../data/movies.csv'
-# recommended_movies = recommend_by_all_genres(list_genres, csv_file_path)
-
