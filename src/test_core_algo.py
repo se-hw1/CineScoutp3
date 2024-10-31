@@ -197,3 +197,19 @@ def test_surprise_me_comedy():
     for movie, processed_movie in result:
         recommended_genres = get_genres_for_movie(movie, "./data/movies.csv")
         assert any(genre in recommended_genres for genre in watched_genres)
+
+def test_search_year():
+    result_titles, result_year = search_year("1998", "./data/movies.csv")
+    assert all("1998" in res for res in result_year)
+
+def test_search_year_2():
+    result_titles, result_year = search_year("2005", "./data/movies.csv")
+    assert all("2005" in res for res in result_year)
+
+def test_search_year_wrong():
+    result_titles, result_year = search_year("1659", "./data/movies.csv")
+    assert len(result_titles) == 0
+
+def test_search_year_wrong_2():
+    result_titles, result_year = search_year("5000", "./data/movies.csv")
+    assert len(result_titles) == 0
