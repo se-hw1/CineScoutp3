@@ -1,0 +1,96 @@
+.surprise-container {
+    padding: 20px;
+    text-align: center;
+    background-color: #141414; /* Dark background */
+}
+
+.movie-details-container {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white */
+    border-radius: 10px; 
+    padding: 20px;
+    margin: 20px auto; 
+    max-width: 800px; 
+}
+
+.movie-poster img {
+    border-radius: 10px; 
+    max-width: 200px; 
+    margin-right: 20px; 
+}
+
+.movie-content {
+    text-align: left; 
+}
+
+.movie-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #ffffff; /* White text */
+}
+
+.movie-overview {
+    margin: 10px 0;
+    line-height: 1.5; 
+    color: #b3b3b3; /* Light gray for overview */
+}
+
+.watch-button, .surprise-button {
+    padding: 10px 15px;
+    background-color: #e50914; /* Netflix red */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.watch-button:hover, .surprise-button:hover {
+    background-color: #f40612; /* Slightly darker on hover */
+}
+
+.trailer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
+    display: flex;
+    align-items: center;   /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    z-index: 1000;
+}
+
+.trailer-content {
+    width: 80%; /* Width of the trailer content */
+    max-width: 800px; /* Maximum width */
+    height: 45vw; /* Maintain aspect ratio */
+    max-height: 450px; /* Maximum height */
+    background: black;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative; /* For positioning the close button */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Optional: add shadow for better visibility */
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001; /* Above the iframe */
+}
+
+
+.error-message {
+    color: #e50914; /* Netflix red */
+    font-size: 0.9em;
+    margin-top: 5px;
+}
