@@ -213,3 +213,20 @@ def test_search_year_wrong():
 def test_search_year_wrong_2():
     result_titles, result_year = search_year("5000", "./data/movies.csv")
     assert len(result_titles) == 0
+
+def test_sort_year():
+    result_titles, result_year = sort_year("ascending", "./data/movies.csv")
+    
+    # check sorting does not affect the list order
+    unsorted_res = result_year.copy()
+    result_year.sort()
+    assert unsorted_res == result_year
+    
+
+def test_sort_year_descending():
+    result_titles, result_year = sort_year("descending", "./data/movies.csv")
+    
+    # check sorting does not affect the list order
+    unsorted_res = result_year.copy()
+    result_year.sort(reverse=True)
+    assert unsorted_res == result_year
