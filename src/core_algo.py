@@ -1,7 +1,18 @@
+"""
+This is where the core recommendation algorithm functions live. 
+core_algo recommends movies based on a movie list, and recommend_by_all_genres recommends based on a genre list.
+
+"""
 import csv
 from collections import defaultdict
 
+csv_file = "../../data/movies.csv"
+
 def put_article_first(movtitle):
+    """
+    Utility function to put title first
+    :param str movtitle: movie title in the format "English title", The (YYYY)
+    """
     art = movtitle.split(",")
     AThe = ''
     if len(art) > 1:
@@ -13,6 +24,10 @@ def put_article_first(movtitle):
         return movtitle
 
 def proc_movie_string(movie):
+    """
+    Utility function to process movie string
+    :param str movie: Movie string
+    """
     movie = movie.strip()
     
     l = len(movie)
@@ -30,7 +45,11 @@ def proc_movie_string(movie):
         engtitle = put_article_first(translated_titles[0])
         return engtitle, year
 
-def core_algo(list_movies, csv_file):
+def core_algo(list_movies):
+    """
+    The core algorithm function, recommends based on list of movies
+    :param list list_movies: Input list of movies
+    """
     
     genre_count = defaultdict(int)  
     genre_movies = defaultdict(list) 
@@ -64,7 +83,11 @@ def core_algo(list_movies, csv_file):
     
     return [(rec, proc_movie_string(rec)) for rec in recommendations]
 
-def surprise_me(watched_list, csv_file):
+def surprise_me(watched_list):
+    """
+    Function for surprise-me frontend button
+    :param list watched_list: List of movies already watched
+    """
     genre_count = defaultdict(int)
     genre_movies = defaultdict(list)
     watched_movies = set(watched_list)
@@ -96,7 +119,11 @@ def surprise_me(watched_list, csv_file):
                     return [(rec, proc_movie_string(rec)) for rec in recommendations]
     return [(rec, proc_movie_string(rec)) for rec in recommendations]
 
-def recommend_by_all_genres(list_genres, csv_file):
+def recommend_by_all_genres(list_genres):
+    """
+    Function for recommending movies by genres. Is invoked when user first creates account.
+    :param list list_genres: list of genres
+    """
 
     matching_movies = [] 
 
@@ -112,7 +139,11 @@ def recommend_by_all_genres(list_genres, csv_file):
 
     return [(rec, proc_movie_string(rec)) for rec in matching_movies[:50]]
 
-def search_year(year, csv_file):
+def search_year(year):
+    """
+    Function to search movie in a specific year.
+    :param str year: Year to search
+    """
     matching_movies = [] 
     years = []
 
@@ -130,7 +161,12 @@ def search_year(year, csv_file):
 def keysort(title_tuple):
     return int(title_tuple[1])
 
-def sort_year(y_order, csv_file):
+def sort_year(y_order):
+    """
+    Function to sort movies by year
+    :param str y_order: can be 'ascending' or 'descending'
+    """
+    
     matching_movies = [] 
 
     with open(csv_file, mode='r', encoding='utf-8') as file:

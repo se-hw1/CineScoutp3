@@ -46,9 +46,7 @@ def test_apicall_select_genres():
     req_body = json.dumps({"genre_list" : specified_genres})
 
     code, res, resp = formdata_apicall2("registeruserprefs", get, req_body, pcookies=user_cookies)
-    assert code == 200 and "movie_list" in dict(res).keys()
-    
-    
+    assert code == 200 and "movie_list" in dict(res).keys() 
     
 
 def test_apicall_recommend_movie_newuser():
@@ -68,10 +66,7 @@ def test_apicall_recommend_movie_newuser():
 
     # get recommendations without having watched
     code, res, resp = formdata_apicall2("getmovielist", get, req_body, pcookies=user_cookies)
-    assert code == 200 and "movie_list" in dict(res).keys()
-
-
-    
+    assert code == 200 and "movie_list" in dict(res).keys()  
     
 def test_apicall_update_user_history():
 

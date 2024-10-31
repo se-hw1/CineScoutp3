@@ -1,3 +1,7 @@
+"""
+The backend of the website. This consists of all the API calls for user management and connections to the core recommendation algorithm.
+"""
+
 from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
@@ -14,24 +18,23 @@ from core_algo import recommend_by_all_genres, core_algo, search_year, sort_year
 def find_in_list(title, listp):
     T1_list = [s.lower().translate(str.maketrans('','',string.punctuation)) for s in title.split()]
     for item in listp:
-        if (item == "Fight Club (1999)"):
-            l = len(item)
-            title = item[0:l - 6].strip()
-            year = item[l - 5: l - 1].strip()
-            if not year.isdigit():
-                year = "3000"
+        l = len(item)
+        title = item[0:l - 6].strip()
+        year = item[l - 5: l - 1].strip()
+        if not year.isdigit():
+            year = "3000"
 
-            cond = True
-            T2 = title.split("(")[0].strip().lower().translate(str.maketrans('','',string.punctuation))
-            T2_list = T2.split()
-            for i in range(len(T2_list)):
-                cond = cond and (T2_list[i] in T1_list[i])
-            
-            if cond:
-                return item
+        cond = True
+        T2 = title.split("(")[0].strip().lower().translate(str.maketrans('','',string.punctuation))
+        T2_list = T2.split()
+        for i in range(len(T2_list)):
+            cond = cond and (T2_list[i] in T1_list[i])
         
-def translate_local(title, csv_file):
-    with open(csv_file, encoding='utf-8') as file:
+        if cond:
+            return item
+        
+def translate_local(title):
+    with open("../../data/movies.csv", encoding='utf-8') as file:
         csvd = csv.DictReader(file)
         titles_here = []
         for row in csvd:
@@ -55,6 +58,13 @@ login_manager.init_app(app)
 # database schema setup
 
 class User(UserMixin, db.Model):
+    """
+    User ORM class
+    :param id: User ID. Primary key of the table.
+    :param username: Username of the user.
+    :param password_hash: User password hash.
+    :param newuser: Stores whether the user is new or not.
+    """
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
     password_hash = db.Column(db.String(200))
@@ -67,6 +77,13 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
 class Recommendation(db.Model):
+    """
+    Recommendation ORM class
+    :param id: Movie Recommendation ID
+    :param user_id: ID of the user it was recommended to
+    :param movie_title: The title of the movie
+    :param watched: Whether or not the user has watched the movie
+    """
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     movie_title = db.Column(db.String(200), nullable=False)
@@ -84,6 +101,11 @@ def load_user(user_id):
 
 @app.route("/login", methods=["GET","POST"])
 def login():
+    """
+    API Call for user login 
+    :param endpoint /login:
+    :param request body: {"username" : <username>, "password" : <password>}
+    """
     err = None
     print(current_user.is_authenticated)
     if current_user.is_authenticated:
@@ -116,6 +138,11 @@ def login():
 @app.route('/logout')
 @login_required
 def logout():
+    """
+    API Call for user logout 
+    :param endpoint /logout:
+    
+    """
     logout_user()
     resp = make_response("", 200)
     return resp
@@ -124,6 +151,11 @@ def logout():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """
+    API Call for user register 
+    :param Endpoint /register:
+    :param Request Body: {"username" : <username>, "password" : <password>}
+    """
     if current_user.is_authenticated:
         return jsonify({"code" : 201, "redirect_url_key" : "HOME"})
     else:
