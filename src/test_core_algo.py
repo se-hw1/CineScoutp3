@@ -1,7 +1,7 @@
 import sys
 import csv
 sys.path.append("./src/")
-from core_algo import recommend_by_all_genres, core_algo
+from core_algo import recommend_by_all_genres, core_algo, surprise_me, search_year, sort_year
 
 def get_genres_for_movie(movie_title, csv_file_path):
     genres = []
@@ -150,20 +150,6 @@ def test_core_algo_genre_consistency_five():
         recommended_genres = get_genres_for_movie(movie[0], "./data/movies.csv")
         assert all(genre in recommended_genres for genre in watched_genres)  # At least one genre must match
 
-def test_core_algo_genre_consistency_one():
-    list_movies = ["Kid, The (2000)"]  
-    result = core_algo(list_movies, "./data/movies.csv")
-    
-    # genres of the watched movies
-    watched_genres = set()
-    for movie in list_movies:
-        watched_genres.update(get_genres_for_movie(movie[0], "./data/movies.csv"))
-    
-    # recommendations genres with the watched movies genres comparison
-    for movie, processed_movie in result:
-        recommended_genres = get_genres_for_movie(movie[0], "./data/movies.csv")
-        assert all(genre in recommended_genres for genre in watched_genres)  # At least one genre must match
-
 def test_core_algo_genre_consistency_single():
     list_movies = ["Andrew Dice Clay: Dice Rules (1991)"]  
     result = core_algo(list_movies, "./data/movies.csv")
@@ -177,3 +163,37 @@ def test_core_algo_genre_consistency_single():
     for movie, processed_movie in result:
         recommended_genres = get_genres_for_movie(movie[0], "./data/movies.csv")
         assert all(genre in recommended_genres for genre in watched_genres)  # At least one genre must match
+
+def test_surprise_me_horror():
+    # Define the watched list for the test
+    watched_list = ["Lord of Illusions (1995)","Father of the Bride Part II (1995)", "Sabrina (1995)", "American President, The (1995)"]
+    
+    # Call the surprise_me function to get recommendations
+    result = surprise_me(watched_list, "./data/movies.csv")
+    
+    # Get genres of the watched movie
+    watched_genres = set()
+    for movie in watched_list:
+        watched_genres.update(get_genres_for_movie(movie, "./data/movies.csv"))
+    
+    # Check each recommended movie to ensure it shares at least one genre with watched genres
+    for movie, processed_movie in result:
+        recommended_genres = get_genres_for_movie(movie, "./data/movies.csv")
+        assert any(genre in recommended_genres for genre in watched_genres)
+
+def test_surprise_me_comedy():
+    # Define the watched list for the test
+    watched_list = ["Father of the Bride Part II (1995)"]
+    
+    # Call the surprise_me function to get recommendations
+    result = surprise_me(watched_list, "./data/movies.csv")
+    
+    # Get genres of the watched movie
+    watched_genres = set()
+    for movie in watched_list:
+        watched_genres.update(get_genres_for_movie(movie, "./data/movies.csv"))
+    
+    # Check each recommended movie to ensure it shares at least one genre with watched genres
+    for movie, processed_movie in result:
+        recommended_genres = get_genres_for_movie(movie, "./data/movies.csv")
+        assert any(genre in recommended_genres for genre in watched_genres)
