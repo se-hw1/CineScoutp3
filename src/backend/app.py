@@ -12,8 +12,8 @@ import csv
 import sys, string
 from datetime import datetime
 
-sys.path.append("../")
-from core_algo import recommend_by_all_genres, core_algo, search_year, sort_year
+# sys.path.append("../")
+from ..core_algo import recommend_by_all_genres, core_algo, search_year, sort_year
 
 def find_in_list(title, listp):
     T1_list = [s.lower().translate(str.maketrans('','',string.punctuation)) for s in title.split()]
@@ -60,15 +60,18 @@ login_manager.init_app(app)
 class User(UserMixin, db.Model):
     """
     User ORM class
-    :param id: User ID. Primary key of the table.
-    :param username: Username of the user.
-    :param password_hash: User password hash.
-    :param newuser: Stores whether the user is new or not.
     """
     id = db.Column(db.Integer, primary_key=True)
+    """:param id: User ID. Primary key of the table."""
+
     username = db.Column(db.String(100), unique=True, nullable=False)
+    """:param username: Username of the user."""
+
     password_hash = db.Column(db.String(200))
+    """:param password_hash: User password hash."""
+    
     newuser = db.Column(db.Integer, default=1)
+    """:param newuser: Stores whether the user is new or not."""
     
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -79,16 +82,23 @@ class User(UserMixin, db.Model):
 class Recommendation(db.Model):
     """
     Recommendation ORM class
-    :param id: Movie Recommendation ID
-    :param user_id: ID of the user it was recommended to
-    :param movie_title: The title of the movie
-    :param watched: Whether or not the user has watched the movie
     """
     id = db.Column(db.Integer, primary_key=True)
+    """:param id: Movie Recommendation ID"""
+    
+    
+    
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    """:param user_id: ID of the user it was recommended to"""
+
     movie_title = db.Column(db.String(200), nullable=False)
+    """:param movie_title: The title of the movie"""
+
     recommended_on = db.Column(db.DateTime, default=datetime.utcnow)
+    """:param recommended_on: Date and time when the movie was recommended"""
+    
     watched = db.Column(db.Integer, default=0)
+    """:param watched: Whether or not the user has watched the movie"""
 
     def __repr__(self):
         return f'<Recommendation {self.movie_title}>'
@@ -104,7 +114,7 @@ def login():
     """
     API Call for user login 
     :param endpoint /login:
-    :param request body: {"username" : <username>, "password" : <password>}
+    :param request body: {"username" : ```username```, "password" : ```password```}
     """
     err = None
     print(current_user.is_authenticated)
@@ -141,7 +151,7 @@ def logout():
     """
     API Call for user logout 
     :param endpoint /logout:
-    
+    Always include user credentials here.
     """
     logout_user()
     resp = make_response("", 200)
@@ -154,7 +164,8 @@ def register():
     """
     API Call for user register 
     :param Endpoint /register:
-    :param Request Body: {"username" : <username>, "password" : <password>}
+    :param Request Body: {"username" : ```username```, "password" : ```password```}
+    Always include user credentials here.
     """
     if current_user.is_authenticated:
         return jsonify({"code" : 201, "redirect_url_key" : "HOME"})
@@ -175,6 +186,12 @@ def register():
 
 @app.route("/registeruserprefs")
 def registeruserprefs():
+    """
+    Registers the user preferences of the new user.
+    :param Endpoint /registeruserprefs:
+    :param Request Body: string({"genre_list" : ```List of Genres``` })
+
+    """
     genrelist = json.loads(request.data)['genre_list']
     movielist = []
     #  Run genre based recommendation algorithm
@@ -205,16 +222,25 @@ def raw_getmovielist():
 # get recommended movie list based on history
 @app.route("/getmovielist")
 def getmovielist():
+    """
+    Gets the recommended movie list from the DB.
+    :param Endpoint /getmovielist:
+    """
     return jsonify(raw_getmovielist())
     
 
 @app.route("/updatehistory")
 def watchmovie():
+    """
+    Marks a movie as watched.
+    :param Endpoint /updatehistory:
+    :param Request Body: string({"movie_title" : ```your_movie_title``` })
+    """
     if (current_user.newuser):
         User.query.filter_by(id=current_user.id).update({"newuser" : 0})
     
     moviename_other= json.loads(request.data)["movie_title"]
-    moviename = translate_local(moviename_other, "../../data/movies.csv")
+    moviename = translate_local(moviename_other)
     Recommendation.query.filter_by(user_id = current_user.id)\
                         .filter_by(movie_title = moviename)\
                         .update({"watched" : 1})
