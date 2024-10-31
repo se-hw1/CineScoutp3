@@ -1,11 +1,43 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 import json
-import sys
+import csv
+import sys, string
 from datetime import datetime
+
+sys.path.append("../")
+from core_algo import recommend_by_all_genres, core_algo, search_year, sort_year
+
+def find_in_list(title, listp):
+    T1_list = [s.lower().translate(str.maketrans('','',string.punctuation)) for s in title.split()]
+    for item in listp:
+        if (item == "Fight Club (1999)"):
+            l = len(item)
+            title = item[0:l - 6].strip()
+            year = item[l - 5: l - 1].strip()
+            if not year.isdigit():
+                year = "3000"
+
+            cond = True
+            T2 = title.split("(")[0].strip().lower().translate(str.maketrans('','',string.punctuation))
+            T2_list = T2.split()
+            for i in range(len(T2_list)):
+                cond = cond and (T2_list[i] in T1_list[i])
+            
+            if cond:
+                return item
+        
+def translate_local(title, csv_file):
+    with open(csv_file, encoding='utf-8') as file:
+        csvd = csv.DictReader(file)
+        titles_here = []
+        for row in csvd:
+            titles_here.append(row["title"])
+        
+        return find_in_list(title, titles_here)
 
 # initial app setup
 app = Flask(__name__)
@@ -85,6 +117,9 @@ def login():
 @login_required
 def logout():
     logout_user()
+    resp = make_response("", 200)
+    return resp
+
     # return jsonify({"code" : 200, "redirect_url_key" : "LOGIN"})
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -111,28 +146,29 @@ def registeruserprefs():
     genrelist = json.loads(request.data)['genre_list']
     movielist = []
     #  Run genre based recommendation algorithm
-    #  movielist = recommendMoviesNew(genrelist)
+    movielist = recommend_by_all_genres(genrelist, "../../data/movies.csv")
     for movie in movielist:
-        rec = Recommendation(user_id = current_user.id, movie_title = movie)
+        rec = Recommendation(user_id = current_user.id, movie_title = movie[0])
         db.session.add(rec)
         db.session.commit()
-    
-    return jsonify({"movie_list" : movielist})
+    recmovies = [t[1][0] for t in movielist]
+    return jsonify({"movie_list" : recmovies})
 
 def raw_getmovielist():
     if (current_user.newuser):
-        all_watched_movies = Recommendation.query(Recommendation.movie_title)\
+        all_watched_movies = [mov.movie_title for mov in Recommendation.query\
                                 .filter_by(user_id=current_user.id)\
-                                .all()
+                                .all()][0:10]
     else:
-        all_watched_movies = Recommendation.query(Recommendation.movie_title)\
+        all_watched_movies = [mov.movie_title for mov in Recommendation.query\
                                 .filter_by(user_id=current_user.id)\
-                                .filter_by(watched=1).all()
+                                .filter_by(watched=1).all()]
     
     recommended_movies = []
     #  Run movie based recommendation algorithm
-    # recommended_movies = core_algo(all_watched_movies)
-    return {"movie_list" : recommended_movies}
+    recommended_movies = core_algo(all_watched_movies, "../../data/movies.csv")
+    recmovies = [t[1][0] for t in recommended_movies]
+    return {"movie_list" : recmovies}
 
 # get recommended movie list based on history
 @app.route("/getmovielist")
@@ -145,11 +181,14 @@ def watchmovie():
     if (current_user.newuser):
         User.query.filter_by(id=current_user.id).update({"newuser" : 0})
     
-    moviename = json.loads(request.data)["movie_title"]
+    moviename_other= json.loads(request.data)["movie_title"]
+    moviename = translate_local(moviename_other, "../../data/movies.csv")
     Recommendation.query.filter_by(user_id = current_user.id)\
                         .filter_by(movie_title = moviename)\
                         .update({"watched" : 1})
     db.session.commit()
+    resp = make_response("", 200)
+    return resp
 
 if __name__ == "__main__":
     with app.app_context():
