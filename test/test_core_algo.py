@@ -38,3 +38,32 @@ def test_core_algo_horror_mystery(self):
         movie_genres = get_genres_for_movie(movie, self.csv_file_path)
         for genre in specified_genres:
             assert genre in movie_genres
+
+#5
+def test_core_algo_advent_children_fantasy(self):
+    specified_genres = ['Adventure', 'Children','Fantasy']
+    result = recommend_by_all_genres(specified_genres, self.csv_file_path)
+    
+    for movie in result:
+        movie_genres = get_genres_for_movie(movie, self.csv_file_path)
+        for genre in specified_genres:
+            assert genre in movie_genres
+
+#6
+def test_core_algo_crime_drama_thriller(self):
+    specified_genres = ['Crime', 'Drama','Thriller']
+    result = recommend_by_all_genres(specified_genres, self.csv_file_path)
+    
+    for movie in result:
+        movie_genres = get_genres_for_movie(movie, self.csv_file_path)
+        for genre in specified_genres:
+            assert genre in movie_genres
+#7
+def test_core_algo_drama_children_musical(self):
+    specified_genres = ['Drama', 'Children','Musical']
+    result = recommend_by_all_genres(specified_genres, self.csv_file_path)
+    
+    for movie in result:
+        movie_genres = get_genres_for_movie(movie, self.csv_file_path)
+        for genre in specified_genres:
+            assert genre in movie_genres
