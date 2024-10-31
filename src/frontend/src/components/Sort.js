@@ -8,12 +8,15 @@ const Sort = ({ onSort }) => {
 
     const handleSort = (e) => {
         e.preventDefault();
+        if (genre && year && rating) {
         onSort({ genre, year, rating });
+        }
     };
 
+    
     return (
-        <form onSubmit={handleSort} className="sort-container">
-            <select value={genre} onChange={(e) => setGenre(e.target.value)} className="sort-select">
+        <form className="sort-container">
+            <select onSubmit={handleSort} value={genre} onChange={(e) => setGenre(e.target.value)} className="sort-select">
                 <option value="">Select Genre</option>
                 <option value="28">Action</option>
                 <option value="35">Comedy</option>
