@@ -33,7 +33,7 @@ Get ready to uncover movies tailored just for you! Choose your favorite genres, 
 You can also **Search 🔍** for specific titles or discover new favorites across languages, all customized according to your preferences. CineScout has everything you need to make movie night a breeze—so let’s dive in and start finding your perfect picks! 🌟
 
 ## 🌟 New Features 🌟
-**🔄 Dynamic TMDb Suggestions:**
+**🔄 TMDb based Suggestions:**
 Get real-time movie recommendations! CineScout now analyzes your watch history to provide personalized suggestions based on up-to-date data from The Movie Database (TMDb).
 
 **🎲 "Surprise Me" Feature:**
@@ -63,7 +63,9 @@ Take quizzes to help CineScout better understand your tastes! Discover your "Mov
 
 Get into the spirit of each season with holiday-themed picks, from Halloween horrors to cozy Christmas classics. Seasonal movie suggestions would add an extra layer of excitement to your viewing experience!
 
-## Video
+## Check out our enhancements!
+
+<iframe src="./assets/Sell.mp4" alt="Sell the project"> </iframe>
 
 
 ## Tech Stack 
