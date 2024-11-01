@@ -7,7 +7,7 @@
 <a href="https://github.com/SoftwareEngg2024/CineScout/blob/ver_i/LICENSE.md"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green"></a>
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 <a href="https://handle.stage.datacite.org/10.5072/zenodo.125202"><img src="https://sandbox.zenodo.org/badge/DOI/10.5072/zenodo.125202.svg" alt="DOI"></a>
-
+<a href="https://github.com/SoftwareEngg2024/CineScout/blob/ver_i/LICENSE.md"><img alt="License: MIT" src="https://img.shields.io/badge/Style_Checker-Pylance-green"></a>
 </p>
 
 <!-- [![DOI](https://sandbox.zenodo.org/badge/720190225.svg)](https://sandbox.zenodo.org/doi/10.5072/zenodo.3401) [![Code Coverage](https://github.com/MadhurDixit13/MovieRecommender/actions/workflows/codecov.yml/badge.svg)](https://github.com/MadhurDixit13/MovieRecommender/actions/workflows/codecov.yml) [![codecov](https://codecov.io/gh/MadhurDixit13/MovieRecommender/graph/badge.svg?token=9NGWAJ7BST)] 
