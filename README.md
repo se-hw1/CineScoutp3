@@ -13,6 +13,27 @@
 <!-- [![DOI](https://sandbox.zenodo.org/badge/720190225.svg)](https://sandbox.zenodo.org/doi/10.5072/zenodo.3401) [![Code Coverage](https://github.com/MadhurDixit13/MovieRecommender/actions/workflows/codecov.yml/badge.svg)](https://github.com/MadhurDixit13/MovieRecommender/actions/workflows/codecov.yml) [![codecov](https://codecov.io/gh/MadhurDixit13/MovieRecommender/graph/badge.svg?token=9NGWAJ7BST)] 
 (https://codecov.io/gh/MadhurDixit13/MovieRecommender) -->
 
+## Introduction 
+
+
+## Future
+
+
+## Video
+
+
+## Tech Stack 
+
+
+## Requirements and Setup
+
+
+## Documentation 
+
+
+## Chat Channel
+Discord Invite - https://discord.gg/XE3Ragva
+
 ## Bug
 Raise an issue on this repository, we would love to look at it!
 
