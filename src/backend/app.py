@@ -6,50 +6,75 @@ from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from flask_login import (
+    LoginManager,
+    UserMixin,
+    login_user,
+    logout_user,
+    login_required,
+    current_user,
+)
 import json
-import random 
+import random
 import csv
 import sys, string
 from datetime import datetime
 
 sys.path.append("../")
-from core_algo import recommend_by_all_genres, core_algo, search_year, sort_year, search_query, surprise_me
+from core_algo import (
+    recommend_by_all_genres,
+    core_algo,
+    search_year,
+    sort_year,
+    search_query,
+    surprise_me,
+)
+
 
 def find_in_list(title, listp):
-    T1_list = [s.lower().translate(str.maketrans('','',string.punctuation)) for s in title.split()]
+    T1_list = [
+        s.lower().translate(str.maketrans("", "", string.punctuation))
+        for s in title.split()
+    ]
     for item in listp:
         l = len(item)
-        title = item[0:l - 6].strip()
-        year = item[l - 5: l - 1].strip()
+        title = item[0 : l - 6].strip()
+        year = item[l - 5 : l - 1].strip()
         if not year.isdigit():
             year = "3000"
 
         cond = True
-        T2 = title.split("(")[0].strip().lower().translate(str.maketrans('','',string.punctuation))
+        T2 = (
+            title.split("(")[0]
+            .strip()
+            .lower()
+            .translate(str.maketrans("", "", string.punctuation))
+        )
         T2_list = T2.split()
         # print(T2_list)
         # print(T1_list)
         for i in range(min(len(T1_list), len(T2_list))):
             cond = cond and (T2_list[i] in T1_list[i])
-        
+
         if cond:
             return item
-        
+
+
 def translate_local(title):
-    with open("../../data/movies.csv", encoding='utf-8') as file:
+    with open("../../data/movies.csv", encoding="utf-8") as file:
         csvd = csv.DictReader(file)
         titles_here = []
         for row in csvd:
             titles_here.append(row["title"])
-        
+
         return find_in_list(title, titles_here)
+
 
 # initial app setup
 app = Flask(__name__)
 app.debug = False
 app.secret_key = "secret key"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
 CORS(app, supports_credentials=True)
 
 db = SQLAlchemy(app)
@@ -60,10 +85,12 @@ login_manager.init_app(app)
 
 # database schema setup
 
+
 class User(UserMixin, db.Model):
     """
     User ORM class
     """
+
     id = db.Column(db.Integer, primary_key=True)
     """:param id: User ID. Primary key of the table."""
 
@@ -72,26 +99,26 @@ class User(UserMixin, db.Model):
 
     password_hash = db.Column(db.String(200))
     """:param password_hash: User password hash."""
-    
+
     newuser = db.Column(db.Integer, default=1)
     """:param newuser: Stores whether the user is new or not."""
-    
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+
 class Recommendation(db.Model):
     """
     Recommendation ORM class
     """
+
     id = db.Column(db.Integer, primary_key=True)
     """:param id: Movie Recommendation ID"""
-    
-    
-    
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     """:param user_id: ID of the user it was recommended to"""
 
     movie_title = db.Column(db.String(200), nullable=False)
@@ -99,60 +126,68 @@ class Recommendation(db.Model):
 
     recommended_on = db.Column(db.DateTime, default=datetime.utcnow)
     """:param recommended_on: Date and time when the movie was recommended"""
-    
+
     watched = db.Column(db.Integer, default=0)
     """:param watched: Whether or not the user has watched the movie"""
 
     def __repr__(self):
-        return f'<Recommendation {self.movie_title}>'
+        return f"<Recommendation {self.movie_title}>"
+
 
 # user management
+
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-@app.route("/login", methods=["GET","POST"])
+
+@app.route("/login", methods=["GET", "POST"])
 def login():
     """
-    API Call for user login 
+    API Call for user login
     :param endpoint /login:
     :param request body: {"username" : ```username```, "password" : ```password```}
     """
     err = None
     print(current_user.is_authenticated)
     if current_user.is_authenticated:
-        return jsonify({"code" : 201, "redirect_url_key" : "HOME"})
+        return jsonify({"code": 201, "redirect_url_key": "HOME"})
         # redirect to landing page
-        
+
     else:
-        username = request.form.get('username')
-        password = request.form.get('password')
-        user = User.query.filter_by(username=username).first()  # 'user' is now defined here
+        username = request.form.get("username")
+        password = request.form.get("password")
+        user = User.query.filter_by(
+            username=username
+        ).first()  # 'user' is now defined here
         errcode = 200
-        err = ''
+        err = ""
         redir_key = "HOME"
         print(username)
         print(password)
         if user is None:
             redir_key = "REGISTER"
             errcode = 400
-            err = 'Invalid username. please register.'
+            err = "Invalid username. please register."
         elif not user.check_password(password):
             redir_key = "LOGIN"
             errcode = 401
-            err = 'Invalid password. please check your password.'
+            err = "Invalid password. please check your password."
         else:
             login_user(user)
-            if (user.newuser):
+            if user.newuser:
                 redir_key = "PREFS"
-        return jsonify({"code" : errcode, "redirect_url_key" : redir_key, "errstring" : err})
+        return jsonify(
+            {"code": errcode, "redirect_url_key": redir_key, "errstring": err}
+        )
 
-@app.route('/logout', methods=["GET", "POST"])
+
+@app.route("/logout", methods=["GET", "POST"])
 @login_required
 def logout():
     """
-    API Call for user logout 
+    API Call for user logout
     :param endpoint /logout:
     Always include user credentials here.
     """
@@ -162,30 +197,33 @@ def logout():
 
     # return jsonify({"code" : 200, "redirect_url_key" : "LOGIN"})
 
-@app.route('/register', methods=['GET', 'POST'])
+
+@app.route("/register", methods=["GET", "POST"])
 def register():
     """
-    API Call for user register 
+    API Call for user register
     :param Endpoint /register:
     :param Request Body: {"username" : ```username```, "password" : ```password```}
     Always include user credentials here.
     """
     if current_user.is_authenticated:
-        return jsonify({"code" : 201, "redirect_url_key" : "HOME"})
+        return jsonify({"code": 201, "redirect_url_key": "HOME"})
     else:
-        if request.method == 'POST':
-            username = request.form.get('username')
-            password = request.form.get('password')
-            if (len(User.query.filter_by(username = username).all()) == 0):
+        if request.method == "POST":
+            username = request.form.get("username")
+            password = request.form.get("password")
+            if len(User.query.filter_by(username=username).all()) == 0:
                 user = User(username=username, newuser=1)
                 user.set_password(password)
                 db.session.add(user)
                 db.session.commit()
-                return jsonify({"code" : 200, "redirect_url_key" : "LOGIN"})
+                return jsonify({"code": 200, "redirect_url_key": "LOGIN"})
             else:
-                return jsonify({"code" : 400, "redirect_url_key" : "REGISTER"})
-            
+                return jsonify({"code": 400, "redirect_url_key": "REGISTER"})
+
+
 # backend modification and querying api calls
+
 
 @app.route("/registeruserprefs", methods=["GET", "POST"])
 def registeruserprefs():
@@ -195,37 +233,43 @@ def registeruserprefs():
     :param Request Body: string({"genre_list" : ```List of Genres``` })
 
     """
-    genrelist = json.loads(request.data)['genre_list']
+    genrelist = json.loads(request.data)["genre_list"]
     movielist = []
     #  Run genre based recommendation algorithm
     movielist = recommend_by_all_genres(genrelist)
     for movie in movielist:
-        rec = Recommendation(user_id = current_user.id, movie_title = movie[0])
+        rec = Recommendation(user_id=current_user.id, movie_title=movie[0])
         db.session.add(rec)
         db.session.commit()
     recmovies = [t[1][0] for t in movielist]
-    return jsonify({"movie_list" : recmovies})
+    return jsonify({"movie_list": recmovies})
+
 
 def raw_getmovielist():
-    if (current_user.newuser):
-        all_watched_movies = [mov.movie_title for mov in Recommendation.query\
-                                .filter_by(user_id=current_user.id)\
-                                .all()][0:10]
+    if current_user.newuser:
+        all_watched_movies = [
+            mov.movie_title
+            for mov in Recommendation.query.filter_by(user_id=current_user.id).all()
+        ][0:10]
     else:
-        all_watched_movies = [mov.movie_title for mov in Recommendation.query\
-                                .filter_by(user_id=current_user.id)\
-                                .filter_by(watched=1).all()]
-    
+        all_watched_movies = [
+            mov.movie_title
+            for mov in Recommendation.query.filter_by(user_id=current_user.id)
+            .filter_by(watched=1)
+            .all()
+        ]
+
     recommended_movies = []
     #  Run movie based recommendation algorithm
     recommended_movies = core_algo(all_watched_movies)
     for movie in recommended_movies:
-        rec = Recommendation(user_id = current_user.id, movie_title = movie[0])
+        rec = Recommendation(user_id=current_user.id, movie_title=movie[0])
         db.session.add(rec)
         db.session.commit()
     recmovies = [t[1][0] for t in recommended_movies]
     random.shuffle(recmovies)
-    return {"movie_list" : recmovies}
+    return {"movie_list": recmovies}
+
 
 # get recommended movie list based on history
 @app.route("/getmovielist", methods=["GET", "POST"])
@@ -235,7 +279,7 @@ def getmovielist():
     :param Endpoint /getmovielist:
     """
     return jsonify(raw_getmovielist())
-    
+
 
 @app.route("/updatehistory", methods=["GET", "POST"])
 def watchmovie():
@@ -244,41 +288,49 @@ def watchmovie():
     :param Endpoint /updatehistory:
     :param Request Body: string({"movie_title" : ```your_movie_title``` })
     """
-    if (current_user.newuser):
-        User.query.filter_by(id=current_user.id).update({"newuser" : 0})
+    if current_user.newuser:
+        User.query.filter_by(id=current_user.id).update({"newuser": 0})
         db.session.commit()
-        
-    moviename_other= json.loads(request.data)["movie_title"]
+
+    moviename_other = json.loads(request.data)["movie_title"]
     moviename = translate_local(moviename_other)
-    Recommendation.query.filter_by(user_id = current_user.id)\
-                        .filter_by(movie_title = moviename)\
-                        .update({"watched" : 1})
+    Recommendation.query.filter_by(user_id=current_user.id).filter_by(
+        movie_title=moviename
+    ).update({"watched": 1})
     db.session.commit()
     resp = make_response("", 200)
     return resp
 
+
 app.route("/surpriseme", methods=["GET", "POST"])
+
+
 def surpriseme():
     """
     Generates new surprise movie for the viewer.
     :param Endpoint /surpriseme:
-    
+
     """
-    if (current_user.newuser):
-        all_watched_movies = [mov.movie_title for mov in Recommendation.query\
-                                .filter_by(user_id=current_user.id)\
-                                .all()][0:10]
+    if current_user.newuser:
+        all_watched_movies = [
+            mov.movie_title
+            for mov in Recommendation.query.filter_by(user_id=current_user.id).all()
+        ][0:10]
     else:
-        all_watched_movies = [mov.movie_title for mov in Recommendation.query\
-                                .filter_by(user_id=current_user.id)\
-                                .filter_by(watched=1).all()]
+        all_watched_movies = [
+            mov.movie_title
+            for mov in Recommendation.query.filter_by(user_id=current_user.id)
+            .filter_by(watched=1)
+            .all()
+        ]
     recommended_movies = []
     #  Run movie based recommendation algorithm
     recommended_movies = surprise_me(all_watched_movies)
-    rec = Recommendation(user_id = current_user.id, movie_title = recommended_movies[0][0])
+    rec = Recommendation(user_id=current_user.id, movie_title=recommended_movies[0][0])
     db.session.add(rec)
     db.session.commit()
-    return {"movie" : recommended_movies[0][1][0]}
+    return {"movie": recommended_movies[0][1][0]}
+
 
 @app.route("/sortyears", methods=["GET", "POST"])
 def sortedmovielist():
@@ -287,13 +339,14 @@ def sortedmovielist():
     :param Endpoint /sortyears:
     :param Request Body: "ascending" or "descending"
     """
-    rec, orec, years = sort_year(request.data == 'ascending')
+    rec, orec, years = sort_year(request.data == "ascending")
     for movie in orec:
-        prec = Recommendation(user_id = current_user.id, movie_title = movie)
+        prec = Recommendation(user_id=current_user.id, movie_title=movie)
         db.session.add(prec)
         db.session.commit()
 
-    return jsonify({"movie_list" : rec[:50]})
+    return jsonify({"movie_list": rec[:50]})
+
 
 @app.route("/searchyear", methods=["GET", "POST"])
 def searchedmovielist():
@@ -303,13 +356,14 @@ def searchedmovielist():
     :param Request Body: string({"year" : ```Year in string format```})
     """
     data = json.loads(request.data)
-    rec, orec, years = search_year(data['year'])
+    rec, orec, years = search_year(data["year"])
     for movie in orec:
-        prec = Recommendation(user_id = current_user.id, movie_title = movie)
+        prec = Recommendation(user_id=current_user.id, movie_title=movie)
         db.session.add(prec)
         db.session.commit()
 
-    return jsonify({"movie_list" : rec})
+    return jsonify({"movie_list": rec})
+
 
 @app.route("/searchquery", methods=["GET", "POST"])
 def searchbyquery():
@@ -322,12 +376,13 @@ def searchbyquery():
     filter = data["contains"]
     mlist, olist = search_query(filter)
     for movie in olist:
-        prec = Recommendation(user_id = current_user.id, movie_title = movie)
+        prec = Recommendation(user_id=current_user.id, movie_title=movie)
         db.session.add(prec)
         db.session.commit()
-    return jsonify({"movie_list" : mlist})
+    return jsonify({"movie_list": mlist})
+
 
 if __name__ == "__main__":
-   with app.app_context():
-       db.create_all()
-   app.run(port=5000, debug=True)
+    with app.app_context():
+        db.create_all()
+    app.run(port=5000, debug=True)

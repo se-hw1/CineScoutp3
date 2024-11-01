@@ -6,6 +6,7 @@
 <a href='https://coveralls.io/github/SoftwareEngg2024/CineScout?branch=ver_i'><img src='https://coveralls.io/repos/github/SoftwareEngg2024/CineScout/badge.svg?branch=ver_i' alt='Coverage Status' /></a>
 <a href="https://github.com/SoftwareEngg2024/CineScout/blob/ver_i/LICENSE.md"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green"></a>
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+<a href="https://handle.stage.datacite.org/10.5072/zenodo.125202"><img src="https://sandbox.zenodo.org/badge/DOI/10.5072/zenodo.125202.svg" alt="DOI"></a>
 
 </p>
 
