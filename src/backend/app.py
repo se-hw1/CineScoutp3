@@ -178,9 +178,7 @@ def login():
             login_user(user)
             if user.newuser:
                 redir_key = "PREFS"
-        return jsonify(
-            {"code": errcode, "redirect_url_key": redir_key, "errstring": err}
-        )
+        return jsonify({"code": errcode, "redirect_url_key": redir_key, "errstring": err})
 
 
 @app.route("/logout", methods=["GET", "POST"])
