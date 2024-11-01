@@ -1,5 +1,5 @@
 cd src/backend
-coverage run app.py &
+coverage run app.py ../../data/movies.csv &
 PID=`echo $!`
 cd ../..;
 sleep 5
