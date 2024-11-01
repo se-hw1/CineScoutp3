@@ -42,6 +42,10 @@ Get into the spirit of each season with holiday-themed picks, from Halloween hor
 
 
 ## Tech Stack 
+- React JS
+- Python
+- Flask
+- CSS
 
 
 ## Requirements and Setup
