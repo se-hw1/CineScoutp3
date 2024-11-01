@@ -12,8 +12,8 @@ import csv
 import sys, string
 from datetime import datetime
 
-# sys.path.append("../")
-from ..core_algo import recommend_by_all_genres, core_algo, search_year, sort_year
+sys.path.append("../")
+from core_algo import recommend_by_all_genres, core_algo, search_year, sort_year
 
 def find_in_list(title, listp):
     T1_list = [s.lower().translate(str.maketrans('','',string.punctuation)) for s in title.split()]
@@ -27,6 +27,8 @@ def find_in_list(title, listp):
         cond = True
         T2 = title.split("(")[0].strip().lower().translate(str.maketrans('','',string.punctuation))
         T2_list = T2.split()
+        print(T2_list)
+        print(T1_list)
         for i in range(len(T2_list)):
             cond = cond and (T2_list[i] in T1_list[i])
         
@@ -145,7 +147,7 @@ def login():
                 redir_key = "PREFS"
         return jsonify({"code" : errcode, "redirect_url_key" : redir_key, "errstring" : err})
 
-@app.route('/logout')
+@app.route('/logout', methods=["GET", "POST"])
 @login_required
 def logout():
     """
@@ -184,7 +186,7 @@ def register():
             
 # backend modification and querying api calls
 
-@app.route("/registeruserprefs")
+@app.route("/registeruserprefs", methods=["GET", "POST"])
 def registeruserprefs():
     """
     Registers the user preferences of the new user.
@@ -195,7 +197,7 @@ def registeruserprefs():
     genrelist = json.loads(request.data)['genre_list']
     movielist = []
     #  Run genre based recommendation algorithm
-    movielist = recommend_by_all_genres(genrelist, "../../data/movies.csv")
+    movielist = recommend_by_all_genres(genrelist)
     for movie in movielist:
         rec = Recommendation(user_id = current_user.id, movie_title = movie[0])
         db.session.add(rec)
@@ -215,12 +217,12 @@ def raw_getmovielist():
     
     recommended_movies = []
     #  Run movie based recommendation algorithm
-    recommended_movies = core_algo(all_watched_movies, "../../data/movies.csv")
+    recommended_movies = core_algo(all_watched_movies)
     recmovies = [t[1][0] for t in recommended_movies]
     return {"movie_list" : recmovies}
 
 # get recommended movie list based on history
-@app.route("/getmovielist")
+@app.route("/getmovielist", methods=["GET", "POST"])
 def getmovielist():
     """
     Gets the recommended movie list from the DB.
@@ -229,7 +231,7 @@ def getmovielist():
     return jsonify(raw_getmovielist())
     
 
-@app.route("/updatehistory")
+@app.route("/updatehistory", methods=["GET", "POST"])
 def watchmovie():
     """
     Marks a movie as watched.

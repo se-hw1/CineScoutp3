@@ -15,6 +15,7 @@ const App = () => {
     const [preferences, setPreferences] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState(''); // State for selected language
+    const [movieList, setMovieList] = useState([])
 
     // Fetch preferences from local storage
     useEffect(() => {
@@ -30,18 +31,22 @@ const App = () => {
         setIsLoggedIn(true);
     };
 
+    const handleSetMovies = (movies) => {
+        setMovieList(movies)
+    }
+
     return (
         <Router>
             <div className="app">
                 {isLoggedIn && <Header onLanguageChange={setSelectedLanguage} />} {/* Pass setSelectedLanguage */}
                 <Routes>
-                    <Route path="/" element={<Login onLogin={handleLogin} />} />
+                    <Route path="/" element={<Login onLogin={handleLogin} movieListGet={movieList} movieListSet={handleSetMovies}/>} />
                     <Route path="/create-account" element={<CreateAccount />} />
-                    <Route path="/preferences" element={<Preferences onSubmit={handlePreferencesSubmit} />} />
-                    <Route path="/recommendations" element={<Recommendations preferences={preferences} language={selectedLanguage} />} /> {/* Pass language prop */}
-                    <Route path="/surprise" element={<SurpriseMe preferences={preferences} language={selectedLanguage} />} /> {/* Pass language prop */}
-                    <Route path="/search" element={<SearchResults />} />
-                    <Route path="/movie/:id" element={<MovieDetails />} />
+                    <Route path="/preferences" element={<Preferences onSubmit={handlePreferencesSubmit} movieListGet={movieList} movieListSet={handleSetMovies}/>} />
+                    <Route path="/recommendations" element={<Recommendations preferences={preferences} language={selectedLanguage} movieListGet={movieList} movieListSet={handleSetMovies} />} /> {/* Pass language prop */}
+                    <Route path="/surprise" element={<SurpriseMe preferences={preferences} language={selectedLanguage} movieListGet={movieList} movieListSet={handleSetMovies} />} /> {/* Pass language prop */}
+                    <Route path="/search" element={<SearchResults movieListGet={movieList} movieListSet={handleSetMovies}/>} />
+                    <Route path="/movie/:title" element={<MovieDetails movieListGet={movieList} movieListSet={handleSetMovies}/>} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </div>

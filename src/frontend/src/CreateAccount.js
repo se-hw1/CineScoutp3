@@ -10,8 +10,25 @@ const CreateAccount = () => {
 
     const handleCreate = (e) => {
         e.preventDefault();
-        // Here you can add the logic to create an account (e.g., API call)
-        // For now, just navigate back to the login page
+        let formData = new FormData();
+        if (username && password) {
+            formData.append('username', username);
+            formData.append('password', password);
+            fetch("http://localhost:5000/register", {
+                body : formData,
+                method : "post"
+            }).then((response) => response.json())
+            .then((resp) => {
+                if (resp["redirect_url_key"] == "HOME") {
+                    navigate("/recommendations")
+                }
+                else if (resp["redirect_url_key"] == "LOGIN") {
+                    navigate("/login")
+                }
+
+            })
+        }
+
         navigate('/');
     };
 

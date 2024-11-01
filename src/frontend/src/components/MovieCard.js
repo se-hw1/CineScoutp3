@@ -32,7 +32,7 @@ const MovieCard = ({ movie }) => {
     };
 
     const handleCardClick = () => {
-        navigate(`/movie/${movie.id}`);
+        navigate(`/movie/${movie.title}`);
     };
 
     return (

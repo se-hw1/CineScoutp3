@@ -78,8 +78,6 @@ def core_algo(list_movies):
         for movie in genre_movies[genre]:
             if movie not in watched_movies:
                 recommendations.append(movie)
-                if len(recommendations) >= 10: 
-                    return [(rec, proc_movie_string(rec)) for rec in recommendations]
     
     return [(rec, proc_movie_string(rec)) for rec in recommendations]
 
@@ -115,8 +113,7 @@ def surprise_me(watched_list):
         for movie in genre_movies[genre]:
             if movie not in watched_movies:
                 recommendations.append(movie)
-                if len(recommendations) >= 10:
-                    return [(rec, proc_movie_string(rec)) for rec in recommendations]
+                
     return [(rec, proc_movie_string(rec)) for rec in recommendations]
 
 def recommend_by_all_genres(list_genres):

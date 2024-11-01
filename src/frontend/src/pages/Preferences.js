@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './Preferences.css';
 import { getmovielist, setmovielist } from './.func';
 
-const Preferences = () => {
+const Preferences = ({movieListGet, movieListSet}) => {
     const availableGenres = [28, 35, 18, 27, 10749, 878]; // TMDB genre IDs
     const genreNames = ['Action', 'Comedy', 'Drama', 'Horror', 'Romance', 'Sci-Fi', 'Documentary'];
     const [selectedGenres, setSelectedGenres] = useState([]);
@@ -18,14 +18,24 @@ const Preferences = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        var Arr = getmovielist();
-        for (var i = 0; i < 50; i++) {
-            Arr = Arr.concat("The Avengers");
+        var genreList = Array()
+        for (var i = 0; i < 7; i++) {
+            for (var j = 0; j < selectedGenres.length; j++) {
+                if (selectedGenres[j] == availableGenres[i])
+                    genreList = genreList.concat(genreNames[i])
+            }
         }
-        setmovielist(Arr);
-        localStorage.setItem('selectedGenres', JSON.stringify(selectedGenres));
+        fetch("http://localhost:5000/registeruserprefs", {
+            method: 'post',
+            body : JSON.stringify({genre_list : genreList}),
+            credentials : 'include'
+        }).then((response) => response.json())
+        .then((resp) => {
+            movieListSet(resp["movie_list"])
+            navigate('/recommendations');
+        })
         
-        navigate('/recommendations');
+        
     };
 
     return (

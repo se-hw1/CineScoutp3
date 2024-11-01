@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css'; // Update to use the new CSS file
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, movieListGet, movieListSet}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -11,8 +11,33 @@ const Login = ({ onLogin }) => {
     const handleLogin = (e) => {
         e.preventDefault();
         if (username && password) {
-            onLogin();
-            navigate('/preferences');
+            
+            let formData = new FormData();
+            formData.append('username', username);
+            formData.append('password', password);
+            fetch("http://localhost:5000/login", {
+            method : "post",
+            body : formData
+            // credentials : 'include'
+            })
+            .then((response) => response.json())
+            .then((resp) => {
+                if (resp["redirect_url_key"] == "PREFS") {
+                    console.log("a")
+                    onLogin()
+                    navigate("/preferences")
+                }
+                else if (resp["redirect_url_key"] == "HOME") {
+                    console.log("b")
+                    onLogin()
+                    navigate("/recommendations")
+                }
+                else if (resp["redirect_url_key"] == "REGISTER") {
+                    console.log("c")
+                    var error_string = resp["errstring"]
+                }
+
+            })
         }
     };
 
