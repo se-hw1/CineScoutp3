@@ -13,6 +13,19 @@
 <!-- [![DOI](https://sandbox.zenodo.org/badge/720190225.svg)](https://sandbox.zenodo.org/doi/10.5072/zenodo.3401) [![Code Coverage](https://github.com/MadhurDixit13/MovieRecommender/actions/workflows/codecov.yml/badge.svg)](https://github.com/MadhurDixit13/MovieRecommender/actions/workflows/codecov.yml) [![codecov](https://codecov.io/gh/MadhurDixit13/MovieRecommender/graph/badge.svg?token=9NGWAJ7BST)] 
 (https://codecov.io/gh/MadhurDixit13/MovieRecommender) -->
 
+# <b>Contents</b>
+
+- [Introduction](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#introduction)<br>
+- [New Features](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#-new-features-)
+- [Future Scope](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#future-scope)<br>
+- [Video](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#video)<br>
+- [Tech Stack](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#tech-stack)<br>
+- [Requirements and Setup](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#requirements-and-setup)<br>
+- [Documentation](https://github.com/SoftwareEngg2024/CineScout/wiki)<br>
+- [Bug](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#bug)<br>
+- [License](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#license-)
+
+
 ## Introduction 
 Welcome to **CineScout**! 🍿✨  
 Get ready to uncover movies tailored just for you! Choose your favorite genres, pick a language 🎭🌍, and even use our **Sort** feature to find films by rating, release year, or genre. Feeling adventurous? Try the **Surprise Me** button 🎲 for a handpicked random movie! 
