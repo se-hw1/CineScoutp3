@@ -18,6 +18,20 @@ Welcome to **CineScout**! 🍿✨
 Get ready to uncover movies tailored just for you! Choose your favorite genres, pick a language 🎭🌍, and even use our **Sort** feature to find films by rating, release year, or genre. Feeling adventurous? Try the **Surprise Me** button 🎲 for a handpicked random movie! 
 
 You can also **Search 🔍** for specific titles or discover new favorites across languages, all customized according to your preferences. CineScout has everything you need to make movie night a breeze—so let’s dive in and start finding your perfect picks! 🌟
+
+## 🌟 New Features 🌟
+**🔄 Dynamic TMDb Suggestions:**
+Get real-time movie recommendations! CineScout now analyzes your watch history to provide personalized suggestions based on up-to-date data from The Movie Database (TMDb).
+
+**🎲 "Surprise Me" Feature:**
+Expand your horizons! With the "Surprise Me" feature, CineScout offers recommendations from genres you rarely explore, helping you discover hidden gems and broaden your movie preferences.
+
+**⚙️ Enhanced User Interface with React:**
+Customizable preferences at your fingertips! Our revamped UI, built with React, allows for seamless navigation and easy refinement of your movie preferences, all within a sleek and intuitive design.
+
+**🔍 Search by Year:**
+Find exactly what you’re looking for! You can now search for movies by title and sort them by release year, giving you greater control over your movie discovery process.
+
 ## Future
 
 **Future Scope**🚀
