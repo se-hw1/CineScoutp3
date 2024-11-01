@@ -20,6 +20,23 @@ Get ready to uncover movies tailored just for you! Choose your favorite genres, 
 You can also **Search 🔍** for specific titles or discover new favorites across languages, all customized according to your preferences. CineScout has everything you need to make movie night a breeze—so let’s dive in and start finding your perfect picks! 🌟
 ## Future
 
+**Future Scope**🚀
+
+**Friend-Suggested Content 🤝:**
+
+Imagine discovering movies recommended by friends! With this feature, you could see what your friends are watching, rate and recommend films, and even plan movie nights together.
+
+**Gamified Movie-Watching 🎮:**
+
+Make movie-watching more fun and rewarding! Earn badges for genres, levels for watching streaks, and special rewards for exploring new types of films. CineScout could turn movie-watching into an engaging journey!
+
+**Interactive Quizzes 📝:**
+
+Take quizzes to help CineScout better understand your tastes! Discover your "Movie Personality" or find films based on your mood, with personalized suggestions that adapt as you explore.
+
+**Seasonal Suggestions 🎃🎄:**
+
+Get into the spirit of each season with holiday-themed picks, from Halloween horrors to cozy Christmas classics. Seasonal movie suggestions would add an extra layer of excitement to your viewing experience!
 
 ## Video
 
