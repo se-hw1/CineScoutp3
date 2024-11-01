@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 import json
+import random 
 import csv
 import sys, string
 from datetime import datetime
@@ -27,9 +28,9 @@ def find_in_list(title, listp):
         cond = True
         T2 = title.split("(")[0].strip().lower().translate(str.maketrans('','',string.punctuation))
         T2_list = T2.split()
-        print(T2_list)
-        print(T1_list)
-        for i in range(len(T2_list)):
+        # print(T2_list)
+        # print(T1_list)
+        for i in range(min(len(T1_list), len(T2_list))):
             cond = cond and (T2_list[i] in T1_list[i])
         
         if cond:
@@ -176,7 +177,7 @@ def register():
             username = request.form.get('username')
             password = request.form.get('password')
             if (len(User.query.filter_by(username = username).all()) == 0):
-                user = User(username=username)
+                user = User(username=username, newuser=1)
                 user.set_password(password)
                 db.session.add(user)
                 db.session.commit()
@@ -223,6 +224,7 @@ def raw_getmovielist():
         db.session.add(rec)
         db.session.commit()
     recmovies = [t[1][0] for t in recommended_movies]
+    random.shuffle(recmovies)
     return {"movie_list" : recmovies}
 
 # get recommended movie list based on history
@@ -244,7 +246,8 @@ def watchmovie():
     """
     if (current_user.newuser):
         User.query.filter_by(id=current_user.id).update({"newuser" : 0})
-    
+        db.session.commit()
+        
     moviename_other= json.loads(request.data)["movie_title"]
     moviename = translate_local(moviename_other)
     Recommendation.query.filter_by(user_id = current_user.id)\

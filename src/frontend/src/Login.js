@@ -17,8 +17,9 @@ const Login = ({ onLogin, movieListGet, movieListSet}) => {
             formData.append('password', password);
             fetch("http://localhost:5000/login", {
             method : "post",
-            body : formData
-            // credentials : 'include'
+            body : formData,
+            // credentials : "include"
+            
             })
             .then((response) => response.json())
             .then((resp) => {
@@ -35,6 +36,9 @@ const Login = ({ onLogin, movieListGet, movieListSet}) => {
                 else if (resp["redirect_url_key"] == "REGISTER") {
                     console.log("c")
                     var error_string = resp["errstring"]
+                }
+                else if (resp["redirect_url_key"] == "LOGIN") {
+                    console.log("c")
                 }
 
             })

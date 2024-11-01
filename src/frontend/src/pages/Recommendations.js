@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import MovieCard from '../components/MovieCard';
 import './Recommendations.css';
-import { getmovielist } from './.func';
 
 const Recommendations = ({ language, movieListGet, movieListSet}) => {
     const [recommendedMovies, setRecommendedMovies] = useState([]);

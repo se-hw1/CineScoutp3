@@ -6,14 +6,14 @@
 <a href='https://coveralls.io/github/SoftwareEngg2024/CineScout?branch=ver_i'><img src='https://coveralls.io/repos/github/SoftwareEngg2024/CineScout/badge.svg?branch=ver_i' alt='Coverage Status' /></a>
 <a href="https://github.com/SoftwareEngg2024/CineScout/blob/ver_i/LICENSE.md"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green"></a>
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+
 </p>
 
 <!-- [![DOI](https://sandbox.zenodo.org/badge/720190225.svg)](https://sandbox.zenodo.org/doi/10.5072/zenodo.3401) [![Code Coverage](https://github.com/MadhurDixit13/MovieRecommender/actions/workflows/codecov.yml/badge.svg)](https://github.com/MadhurDixit13/MovieRecommender/actions/workflows/codecov.yml) [![codecov](https://codecov.io/gh/MadhurDixit13/MovieRecommender/graph/badge.svg?token=9NGWAJ7BST)] 
 (https://codecov.io/gh/MadhurDixit13/MovieRecommender) -->
-[![GitHub release](https://img.shields.io/github/release/git-ankit/MovieRecommender.svg)](https://github.com/SoftwareEngg2024/CineScout/releases) [![black](https://img.shields.io/badge/StyleChecker-black-purple.svg)](https://pypi.org/project/black/) 
 
-## Bug? 🐛
-Raise an issue on this repository, we would love to look at it ❤️
+## Bug
+Raise an issue on this repository, we would love to look at it!
 
 ## License 📃
 This project is under MIT License.

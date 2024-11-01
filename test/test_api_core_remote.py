@@ -67,7 +67,8 @@ def test_apicall_recommend_movie_newuser():
     # get recommendations without having watched
     code, res, resp = formdata_apicall2("getmovielist", get, req_body, pcookies=user_cookies)
     assert code == 200 and "movie_list" in dict(res).keys()  
-    
+
+
 def test_apicall_update_user_history():
 
     # register and login user
@@ -115,6 +116,7 @@ def test_recommend_based_on_watched_history():
     code, res, resp = formdata_apicall2("/getmovielist", get, "", pcookies=user_cookies)
     assert code == 200 and "movie_list" in dict(res).keys()
 
+
 def test_recommend_search():
     user = {'username' : "newuser5", "password" : "new_password5"}
     code, res = formdata_apicall("register", post, user)
@@ -129,6 +131,7 @@ def test_recommend_search():
     code, res, resp = formdata_apicall2("searchquery", get, req_body, pcookies=user_cookies)
     
     assert code == 200 and "movie_list" in dict(res).keys()
+
 
 def test_recommend_sort():
     user = {'username' : "newuser6", "password" : "new_password5"}
@@ -168,7 +171,7 @@ def test_recommend_searchyear():
     # user searches movie
     req_body = json.dumps({"year" : "1998"})
 
-    code, res, resp = formdata_apicall2("searchyear", get, "descending", pcookies=user_cookies)
+    code, res, resp = formdata_apicall2("searchyear", get, req_body, pcookies=user_cookies)
     
     assert code == 200 and "movie_list" in dict(res).keys()
 

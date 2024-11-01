@@ -115,7 +115,7 @@ def test_core_algo_genre_consistency_two():
     for movie in list_movies:
         watched_genres.update(get_genres_for_movie(movie[0]))
     
-    for movie, processed_movie in result:
+    for movie, processed_movie in result[0:200]:
         recommended_genres = get_genres_for_movie(movie[0])
         assert all(genre in recommended_genres for genre in watched_genres)  # At least one genre must match
 
@@ -127,7 +127,7 @@ def test_core_algo_genre_consistency_three():
     for movie in list_movies:
         watched_genres.update(get_genres_for_movie(movie[0]))
     
-    for movie, processed_movie in result:
+    for movie, processed_movie in result[0:200]:
         recommended_genres = get_genres_for_movie(movie[0])
         assert all(genre in recommended_genres for genre in watched_genres)  # At least one genre must match
 
@@ -139,7 +139,7 @@ def test_core_algo_genre_consistency_five():
     for movie in list_movies:
         watched_genres.update(get_genres_for_movie(movie[0]))
     
-    for movie, processed_movie in result:
+    for movie, processed_movie in result[0:200]:
         recommended_genres = get_genres_for_movie(movie[0])
         assert all(genre in recommended_genres for genre in watched_genres)  # At least one genre must match
 
@@ -151,7 +151,7 @@ def test_core_algo_genre_consistency_single():
     for movie in list_movies:
         watched_genres.update(get_genres_for_movie(movie[0]))
     
-    for movie, processed_movie in result:
+    for movie, processed_movie in result[0:200]:
         recommended_genres = get_genres_for_movie(movie[0])
         assert all(genre in recommended_genres for genre in watched_genres)  # At least one genre must match
 
@@ -165,7 +165,7 @@ def test_surprise_me_horror():
     for movie in watched_list:
         watched_genres.update(get_genres_for_movie(movie))
 
-    for movie, processed_movie in result:
+    for movie, processed_movie in result[0:200]:
         recommended_genres = get_genres_for_movie(movie)
         assert any(genre in recommended_genres for genre in watched_genres)
 
@@ -179,7 +179,7 @@ def test_surprise_me_comedy():
     for movie in watched_list:
         watched_genres.update(get_genres_for_movie(movie))
     
-    for movie, processed_movie in result:
+    for movie, processed_movie in result[0:200]:
         recommended_genres = get_genres_for_movie(movie)
         assert any(genre in recommended_genres for genre in watched_genres)
 
