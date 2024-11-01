@@ -65,7 +65,9 @@ Get into the spirit of each season with holiday-themed picks, from Halloween hor
 
 ## Check out our enhancements!
 
+[**Comparison**](https://drive.google.com/file/d/1398eGDBceTI8XGtgwhwj8XWo6CRAhphR/view?usp=sharing) <br>
 
+[**Demo**](https://drive.google.com/file/d/1EVkJBBIjKMmsH0sBl7V_cWwRzyxohqPx/view?usp=drive_link)
 
 ## Tech Stack 
 - React JS
