@@ -26,7 +26,7 @@
 
 
 ## Requirements and Setup
-
+[Installation Instructions](https://github.com/SoftwareEngg2024/CineScout/blob/ver_i/INSTALL.md)
 
 ## Documentation 
 
