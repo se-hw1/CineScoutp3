@@ -13,7 +13,7 @@ import sys, string
 from datetime import datetime
 
 sys.path.append("../")
-from core_algo import recommend_by_all_genres, core_algo, search_year, sort_year
+from core_algo import recommend_by_all_genres, core_algo, search_year, sort_year, search_query, surprise_me
 
 def find_in_list(title, listp):
     T1_list = [s.lower().translate(str.maketrans('','',string.punctuation)) for s in title.split()]
@@ -218,6 +218,10 @@ def raw_getmovielist():
     recommended_movies = []
     #  Run movie based recommendation algorithm
     recommended_movies = core_algo(all_watched_movies)
+    for movie in recommended_movies:
+        rec = Recommendation(user_id = current_user.id, movie_title = movie[0])
+        db.session.add(rec)
+        db.session.commit()
     recmovies = [t[1][0] for t in recommended_movies]
     return {"movie_list" : recmovies}
 
@@ -250,7 +254,77 @@ def watchmovie():
     resp = make_response("", 200)
     return resp
 
+app.route("/surpriseme", methods=["GET", "POST"])
+def surpriseme():
+    """
+    Generates new surprise movie for the viewer.
+    :param Endpoint /surpriseme:
+    
+    """
+    if (current_user.newuser):
+        all_watched_movies = [mov.movie_title for mov in Recommendation.query\
+                                .filter_by(user_id=current_user.id)\
+                                .all()][0:10]
+    else:
+        all_watched_movies = [mov.movie_title for mov in Recommendation.query\
+                                .filter_by(user_id=current_user.id)\
+                                .filter_by(watched=1).all()]
+    recommended_movies = []
+    #  Run movie based recommendation algorithm
+    recommended_movies = surprise_me(all_watched_movies)
+    rec = Recommendation(user_id = current_user.id, movie_title = recommended_movies[0][0])
+    db.session.add(rec)
+    db.session.commit()
+    return {"movie" : recommended_movies[0][1][0]}
+
+@app.route("/sortyears", methods=["GET", "POST"])
+def sortedmovielist():
+    """
+    Gets list of all movies sorted by year
+    :param Endpoint /sortyears:
+    :param Request Body: "ascending" or "descending"
+    """
+    rec, orec, years = sort_year(request.data == 'ascending')
+    for movie in orec:
+        prec = Recommendation(user_id = current_user.id, movie_title = movie)
+        db.session.add(prec)
+        db.session.commit()
+
+    return jsonify({"movie_list" : rec[:50]})
+
+@app.route("/searchyear", methods=["GET", "POST"])
+def searchedmovielist():
+    """
+    Gets list of all movies sorted by year
+    :param Endpoint /searchyear:
+    :param Request Body: string({"year" : ```Year in string format```})
+    """
+    data = json.loads(request.data)
+    rec, orec, years = search_year(data['year'])
+    for movie in orec:
+        prec = Recommendation(user_id = current_user.id, movie_title = movie)
+        db.session.add(prec)
+        db.session.commit()
+
+    return jsonify({"movie_list" : rec})
+
+@app.route("/searchquery", methods=["GET", "POST"])
+def searchbyquery():
+    """
+    Searches the movie according to the content of the request string.
+    :param Endpoint /searchquery:
+    :param Request Body: string({"contains" : ```string to be searched by```})
+    """
+    data = json.loads(request.data)
+    filter = data["contains"]
+    mlist, olist = search_query(filter)
+    for movie in olist:
+        prec = Recommendation(user_id = current_user.id, movie_title = movie)
+        db.session.add(prec)
+        db.session.commit()
+    return jsonify({"movie_list" : mlist})
+
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-    app.run(port=5000, debug=True)
+   with app.app_context():
+       db.create_all()
+   app.run(port=5000, debug=True)
