@@ -1,6 +1,6 @@
 ## Contributing:
 
-* If you would like to contribute and collaborate for this repository, then please intimate us through email at mvdixit@ncsu.edu
+* If you would like to contribute and collaborate for this repository, then please intimate us through email at mskamat@ncsu.edu
 
 ## Purpose of Contributing:
 
