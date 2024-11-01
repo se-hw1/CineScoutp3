@@ -115,4 +115,60 @@ def test_recommend_based_on_watched_history():
     code, res, resp = formdata_apicall2("/getmovielist", get, "", pcookies=user_cookies)
     assert code == 200 and "movie_list" in dict(res).keys()
 
+def test_recommend_search():
+    user = {'username' : "newuser5", "password" : "new_password5"}
+    code, res = formdata_apicall("register", post, user)
+
+    code, res, resp = formdata_apicall2("login", post, user)
+    user_cookies = resp.cookies
+
+    # user searches movie
+    movie_search_query = "fight club"
+    req_body = json.dumps({"contains" : movie_search_query})
+
+    code, res, resp = formdata_apicall2("searchquery", get, req_body, pcookies=user_cookies)
     
+    assert code == 200 and "movie_list" in dict(res).keys()
+
+def test_recommend_sort():
+    user = {'username' : "newuser6", "password" : "new_password5"}
+    code, res = formdata_apicall("register", post, user)
+
+    code, res, resp = formdata_apicall2("login", post, user)
+    user_cookies = resp.cookies
+
+    # user searches movie
+    
+    code, res, resp = formdata_apicall2("sortyears", get, "ascending", pcookies=user_cookies)
+    
+    assert code == 200 and "movie_list" in dict(res).keys()
+
+    
+def test_recommend_sort_descending():
+    user = {'username' : "newuser7", "password" : "new_password5"}
+    code, res = formdata_apicall("register", post, user)
+
+    code, res, resp = formdata_apicall2("login", post, user)
+    user_cookies = resp.cookies
+
+    # user searches movie
+    
+    code, res, resp = formdata_apicall2("sortyears", get, "descending", pcookies=user_cookies)
+    
+    assert code == 200 and "movie_list" in dict(res).keys()
+
+
+def test_recommend_searchyear():
+    user = {'username' : "newuser8", "password" : "new_password5"}
+    code, res = formdata_apicall("register", post, user)
+
+    code, res, resp = formdata_apicall2("login", post, user)
+    user_cookies = resp.cookies
+
+    # user searches movie
+    req_body = json.dumps({"year" : "1998"})
+
+    code, res, resp = formdata_apicall2("searchyear", get, "descending", pcookies=user_cookies)
+    
+    assert code == 200 and "movie_list" in dict(res).keys()
+

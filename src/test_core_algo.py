@@ -3,7 +3,7 @@ import csv
 sys.path.append("./src/")
 from core_algo import recommend_by_all_genres, core_algo, surprise_me, search_year, sort_year
 
-csv_file_path = "../data/movies.csv"
+csv_file_path = "./data/movies.csv"
 
 def get_genres_for_movie(movie_title):
     genres = []
@@ -184,23 +184,23 @@ def test_surprise_me_comedy():
         assert any(genre in recommended_genres for genre in watched_genres)
 
 def test_search_year():
-    result_titles, result_year = search_year("1998")
+    result_titles, o_titles, result_year = search_year("1998")
     assert all("1998" in res for res in result_year)
 
 def test_search_year_2():
-    result_titles, result_year = search_year("2005")
+    result_titles, o_titles,  result_year = search_year("2005")
     assert all("2005" in res for res in result_year)
 
 def test_search_year_wrong():
-    result_titles, result_year = search_year("1659")
+    result_titles, o_titles, result_year = search_year("1659")
     assert len(result_titles) == 0
 
 def test_search_year_wrong_2():
-    result_titles, result_year = search_year("5000")
+    result_titles, o_titles,  result_year = search_year("5000")
     assert len(result_titles) == 0
 
 def test_sort_year():
-    result_titles, result_year = sort_year("ascending")
+    result_titles, o_titles,  result_year = sort_year("ascending")
     
     unsorted_res = result_year.copy()
     result_year.sort()
@@ -208,7 +208,7 @@ def test_sort_year():
     
 
 def test_sort_year_descending():
-    result_titles, result_year = sort_year("descending")
+    result_titles, o_titles,  result_year = sort_year("descending")
 
     unsorted_res = result_year.copy()
     result_year.sort(reverse=True)

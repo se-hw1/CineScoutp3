@@ -3,10 +3,38 @@ This is where the core recommendation algorithm functions live.
 core_algo recommends movies based on a movie list, and recommend_by_all_genres recommends based on a genre list.
 
 """
+import sys
 import csv
 from collections import defaultdict
+import string
 
-csv_file = "../../data/movies.csv"
+csv_file = ""
+if (len(sys.argv) == 1 or sys.argv[1] == "--cov=."):
+    csv_file = "./data/movies.csv"
+else:
+    csv_file = sys.argv[1]
+
+def find_in_list(title, listp):
+    T1_list = [s.lower().translate(str.maketrans('','',string.punctuation)) for s in title.split()]
+    for item in listp:
+        l = len(item)
+        title = item[0:l - 6].strip()
+        year = item[l - 5: l - 1].strip()
+        if not year.isdigit():
+            year = "3000"
+
+        cond = True
+        T2 = title.split("(")[0].strip().lower().translate(str.maketrans('','',string.punctuation))
+        T2_list = T2.split()
+        # print(T2_list)
+        # print(T1_list)
+        for i in range(len(T2_list)):
+            cond = cond and (T2_list[i] in T1_list[i])
+        
+        if cond:
+            return item
+    return ""
+
 
 def put_article_first(movtitle):
     """
@@ -141,7 +169,8 @@ def search_year(year):
     Function to search movie in a specific year.
     :param str year: Year to search
     """
-    matching_movies = [] 
+    matching_movies = []
+    o_matching_movies = [] 
     years = []
 
     with open(csv_file, mode='r', encoding='utf-8') as file:
@@ -152,11 +181,12 @@ def search_year(year):
             if m_year == year:
                 matching_movies.append(title)
                 years.append(m_year)
+                o_matching_movies.append(rows['title'])
         
-    return matching_movies, years
+    return matching_movies, o_matching_movies, years
 
 def keysort(title_tuple):
-    return int(title_tuple[1])
+    return int(title_tuple[1][1])
 
 def sort_year(y_order):
     """
@@ -165,16 +195,39 @@ def sort_year(y_order):
     """
     
     matching_movies = [] 
+    o_matching_movies = [] 
 
     with open(csv_file, mode='r', encoding='utf-8') as file:
         reader = csv.DictReader(file)
         title_list = []
         for rows in reader:
             title_tuple = proc_movie_string(rows['title']);
-            title_list.append(title_tuple)
+            title_list.append((rows['title'], title_tuple))
         
         title_list.sort(key = keysort, reverse=(y_order !="ascending"))
-        matching_movies = [p[0] for p in title_list]
-        years = [p[1] for p in title_list]
+        o_matching_movies = [p[0] for p in title_list]
+        matching_movies = [p[1][0] for p in title_list]
+        years = [p[1][1] for p in title_list]
 
-    return matching_movies, years
+    return matching_movies, o_matching_movies, years
+
+def search_query(contains):
+    """
+    Function to sort movies by year
+    :param str contains: words to be searched in the query
+    """
+    contains_tolower = [ele.strip().lower().translate(str.maketrans('','',string.punctuation)) for ele in contains.split()]
+    mlist = []
+    olist = []
+    with open("../../data/movies.csv", encoding='utf-8') as file:
+        csvp = csv.DictReader(file)
+        for row in csvp:
+            title_tolower = row['title'].strip().lower().translate(str.maketrans('','',string.punctuation)).split()
+            cond = True
+            for contains_wrd in contains_tolower:
+                cond = cond and (contains_wrd in title_tolower)
+        if (cond):
+            mlist.append(proc_movie_string(row['title'])[0])
+            olist.append(row['title'])
+    return mlist, olist
+
