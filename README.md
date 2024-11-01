@@ -65,7 +65,6 @@ Get into the spirit of each season with holiday-themed picks, from Halloween hor
 
 ## Check out our enhancements!
 
-<iframe src="./assets/Sell.mp4" alt="Sell the project"> </iframe>
 
 
 ## Tech Stack 
