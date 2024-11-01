@@ -66,7 +66,7 @@ Get into the spirit of each season with holiday-themed picks, from Halloween hor
 [Installation Instructions](https://github.com/SoftwareEngg2024/CineScout/blob/ver_i/INSTALL.md)
 
 ## Documentation 
-
+Refer here [Wiki Page](https://github.com/SoftwareEngg2024/CineScout/wiki)
 
 ## Chat Channel
 Discord Invite - https://discord.gg/XE3Ragva
