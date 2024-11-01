@@ -32,9 +32,7 @@ Customizable preferences at your fingertips! Our revamped UI, built with React, 
 **🔍 Search by Year:**
 Find exactly what you’re looking for! You can now search for movies by title and sort them by release year, giving you greater control over your movie discovery process.
 
-## Future
-
-**Future Scope**🚀
+## Future Scope🚀
 
 **Friend-Suggested Content 🤝:**
 
