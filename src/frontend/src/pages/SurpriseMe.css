@@ -1,39 +1,85 @@
+/* General styles for the Surprise Me page */
 .surprise-container {
     padding: 20px;
     text-align: center;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transition */
+}
+
+/* Light Mode */
+body.light-mode .surprise-container {
+    background-color: #f8f8f8; /* Light background */
+    color: #000000; /* Black text */
+}
+
+/* Dark Mode */
+body.dark-mode .surprise-container {
     background-color: #141414; /* Dark background */
+    color: #ffffff; /* White text */
 }
 
 .movie-details-container {
     display: flex;
-    align-items: center; 
-    justify-content: center; 
-    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white */
-    border-radius: 10px; 
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
     padding: 20px;
-    margin: 20px auto; 
-    max-width: 800px; 
+    margin: 20px auto;
+    max-width: 800px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light Mode */
+body.light-mode .movie-details-container {
+    background-color: rgba(0, 0, 0, 0.05); /* Light gray with transparency */
+    color: #000000; /* Black text */
+}
+
+/* Dark Mode */
+body.dark-mode .movie-details-container {
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white */
+    color: #ffffff; /* White text */
 }
 
 .movie-poster img {
-    border-radius: 10px; 
-    max-width: 200px; 
-    margin-right: 20px; 
+    border-radius: 10px;
+    max-width: 200px;
+    margin-right: 20px;
 }
 
 .movie-content {
-    text-align: left; 
+    text-align: left;
 }
 
 .movie-title {
     font-size: 24px;
     margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+/* Light Mode */
+body.light-mode .movie-title {
+    color: #000000; /* Black text */
+}
+
+/* Dark Mode */
+body.dark-mode .movie-title {
     color: #ffffff; /* White text */
 }
 
 .movie-overview {
     margin: 10px 0;
-    line-height: 1.5; 
+    line-height: 1.5;
+    transition: color 0.3s ease;
+}
+
+/* Light Mode */
+body.light-mode .movie-overview {
+    color: #333333; /* Dark gray for overview */
+}
+
+/* Dark Mode */
+body.dark-mode .movie-overview {
     color: #b3b3b3; /* Light gray for overview */
 }
 
@@ -44,7 +90,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth transition */
+    transition: background-color 0.3s ease;
 }
 
 .watch-button:hover, .surprise-button:hover {
@@ -59,8 +105,8 @@
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
     display: flex;
-    align-items: center;   /* Center vertically */
-    justify-content: center; /* Center horizontally */
+    align-items: center;
+    justify-content: center;
     z-index: 1000;
 }
 
@@ -87,7 +133,6 @@
     cursor: pointer;
     z-index: 1001; /* Above the iframe */
 }
-
 
 .error-message {
     color: #e50914; /* Netflix red */
