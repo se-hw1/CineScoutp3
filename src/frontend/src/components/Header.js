@@ -31,7 +31,7 @@ const Header = ({ onSort, onLanguageChange }) => {
         <header className={`header ${darkMode ? 'dark-header' : 'light-header'}`}>
             <h1 className="header-title">CineScout</h1>
             <nav className="nav-bar">
-                <Link to="/" className="nav-link">Home</Link>
+                <Link to="/" className="nav-link">LogOut</Link>
                 <Link to="/preferences" className="nav-link">Preferences</Link>
                 <Link to="/recommendations" className="nav-link">Recommendations</Link>
                 <Link to="/surprise" className="nav-link">Surprise Me</Link>
