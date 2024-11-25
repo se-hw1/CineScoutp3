@@ -33,6 +33,7 @@ const Recommendations = ({ language, movieListGet, movieListSet}) => {
                         const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${movietitle[i]}&with_original_language=${language}&include_adult=false`;
                         const response = await fetch(url);
                         const data = await response.json();
+                        data.results[0].id = i;
                         K.push(data.results[0])
                     }
 
