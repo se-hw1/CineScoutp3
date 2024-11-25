@@ -1,0 +1,57 @@
+/* src/pages/Watchlist.css */
+.watchlist-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.watchlist-container h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.watchlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.watchlist-card {
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.watchlist-card:hover {
+    transform: scale(1.05);
+}
+
+.watchlist-poster {
+    width: 100%;
+    height: auto;
+}
+
+.watchlist-info {
+    padding: 10px;
+}
+
+.watchlist-info h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.remove-button {
+    background-color: #e50914; /* Netflix red */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+    background-color: #f40612;
+}

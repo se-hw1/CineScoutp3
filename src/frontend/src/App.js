@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Header from './components/Header';
@@ -9,18 +8,20 @@ import SearchResults from './pages/SearchResults';
 import MovieDetails from './pages/MovieDetails';
 import CreateAccount from './CreateAccount'; 
 import SurpriseMe from './pages/SurpriseMe'; 
+import Watchlist from './pages/Watchlist'; // Import the Watchlist component
 import './styles.css';
 
 const App = () => {
     const [preferences, setPreferences] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState(''); // State for selected language
-    const [movieList, setMovieList] = useState([])
+    const [movieList, setMovieList] = useState([]);
+    const [watchlist, setWatchlist] = useState([]);
 
-    // Fetch preferences from local storage
+    // Fetch watchlist from local storage
     useEffect(() => {
-        const storedGenres = JSON.parse(localStorage.getItem('selectedGenres')) || [];
-        setPreferences(storedGenres);
+        const savedWatchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+        setWatchlist(savedWatchlist);
     }, []);
 
     const handlePreferencesSubmit = (selectedGenres) => {
@@ -32,28 +33,35 @@ const App = () => {
     };
 
     const handleSetMovies = (movies) => {
-        setMovieList(movies)
-    }
+        setMovieList(movies);
+    };
+
+    const addToWatchlist = (movie) => {
+        const updatedWatchlist = [...watchlist, movie];
+        setWatchlist(updatedWatchlist);
+        localStorage.setItem('watchlist', JSON.stringify(updatedWatchlist));
+    };
 
     return (
         <Router>
             <div className="app">
-                {isLoggedIn && <Header onLanguageChange={setSelectedLanguage} />} {/* Pass setSelectedLanguage */}
+                {isLoggedIn && <Header onLanguageChange={setSelectedLanguage} />}
                 <Routes>
-                    <Route path="/" element={<Login onLogin={handleLogin} movieListGet={movieList} movieListSet={handleSetMovies}/>} />
+                    <Route path="/" element={<Login onLogin={handleLogin} />} />
                     <Route path="/create-account" element={<CreateAccount />} />
-                    <Route path="/preferences" element={<Preferences onSubmit={handlePreferencesSubmit} movieListGet={movieList} movieListSet={handleSetMovies}/>} />
-                    <Route path="/recommendations" element={<Recommendations preferences={preferences} language={selectedLanguage} movieListGet={movieList} movieListSet={handleSetMovies} />} /> {/* Pass language prop */}
-                    <Route path="/surprise" element={<SurpriseMe preferences={preferences} language={selectedLanguage} movieListGet={movieList} movieListSet={handleSetMovies} />} /> {/* Pass language prop */}
-                    <Route path="/search" element={<SearchResults movieListGet={movieList} movieListSet={handleSetMovies}/>} />
-                    <Route path="/movie/:title" element={<MovieDetails movieListGet={movieList} movieListSet={handleSetMovies}/>} />
+                    <Route path="/preferences" element={<Preferences onSubmit={handlePreferencesSubmit} />} />
+                    <Route path="/recommendations" element={<Recommendations preferences={preferences} language={selectedLanguage} />} />
+                    <Route path="/surprise" element={<SurpriseMe preferences={preferences} language={selectedLanguage} />} />
+                    <Route path="/search" element={<SearchResults onAddToWatchlist={addToWatchlist} />} />
+                    <Route path="/movie/:title" element={<MovieDetails />} />
+                    <Route path="/watchlist" element={<Watchlist watchlist={watchlist} />} />
                     <Route path="*" element={<Navigate to="/" />} />
+                    <Route path="/search" element={<SearchResults movieListGet={movieList} movieListSet={handleSetMovies} onAddToWatchlist={addToWatchlist} />} />
+
                 </Routes>
             </div>
         </Router>
     );
 };
- 
-
 
 export default App;

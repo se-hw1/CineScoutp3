@@ -1,15 +1,15 @@
-// src/components/MovieCard.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import config from '../config';
 import './MovieCard.css';
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, onAddToWatchlist }) => {
     const navigate = useNavigate();
     const [showTrailer, setShowTrailer] = useState(false);
     const [trailerUrl, setTrailerUrl] = useState('');
     const [error, setError] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(''); // State for success message
 
     const fetchTrailer = async () => {
         try {
@@ -18,7 +18,9 @@ const MovieCard = ({ movie }) => {
                 `https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=${config.API_KEY}`
             );
 
-            const trailers = response.data.results.filter(video => video.type === 'Trailer' && video.site === 'YouTube');
+            const trailers = response.data.results.filter(
+                (video) => video.type === 'Trailer' && video.site === 'YouTube'
+            );
             if (trailers.length > 0) {
                 setTrailerUrl(`https://www.youtube.com/embed/${trailers[0].key}`);
                 setShowTrailer(true);
@@ -35,11 +37,26 @@ const MovieCard = ({ movie }) => {
         navigate(`/movie/${movie.title}`);
     };
 
+    const handleAddToWatchlist = () => {
+        if (onAddToWatchlist) {
+            onAddToWatchlist(movie);
+            // Show success message
+            setSuccessMessage(`${movie.title} has been added to your watchlist!`);
+            // Clear the message after 3 seconds
+            setTimeout(() => {
+                setSuccessMessage('');
+            }, 3000);
+        }
+    };
+
     return (
         <div className="movie-card" style={{ cursor: 'pointer' }}>
             <div onClick={handleCardClick}>
                 {movie.poster_path ? (
-                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+                    <img
+                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                        alt={movie.title}
+                    />
                 ) : (
                     <div className="placeholder">No Image Available</div>
                 )}
@@ -53,11 +70,35 @@ const MovieCard = ({ movie }) => {
                 Watch Trailer
             </button>
 
+            {/* Add to Watchlist Button */}
+            <button
+                className="add-to-watchlist-button"
+                onClick={handleAddToWatchlist}
+            >
+                Add to Watchlist
+            </button>
+
+            {/* Success Message */}
+            {successMessage && (
+                <div className="success-message">{successMessage}</div>
+            )}
+
             {/* Trailer Modal Overlay */}
             {showTrailer && (
-                <div className="trailer-overlay" onClick={() => setShowTrailer(false)}>
-                    <div className="trailer-content" onClick={(e) => e.stopPropagation()}>
-                        <button className="close-button" onClick={() => setShowTrailer(false)}>✕</button>
+                <div
+                    className="trailer-overlay"
+                    onClick={() => setShowTrailer(false)}
+                >
+                    <div
+                        className="trailer-content"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button
+                            className="close-button"
+                            onClick={() => setShowTrailer(false)}
+                        >
+                            ✕
+                        </button>
                         <iframe
                             width="100%"
                             height="100%"

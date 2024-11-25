@@ -28,14 +28,15 @@ const Header = ({ onSort, onLanguageChange }) => {
     };
 
     return (
-        <header className="header">
-            <h1>CineScout</h1>
-            <nav>
-                <Link to="/">Home</Link>
-                <Link to="/preferences">Preferences</Link>
-                <Link to="/recommendations">Recommendations</Link>
-                <Link to="/surprise">Surprise Me</Link>
-                {/* Add toggle button inline with navigation */}
+        <header className={`header ${darkMode ? 'dark-header' : 'light-header'}`}>
+            <h1 className="header-title">CineScout</h1>
+            <nav className="nav-bar">
+                <Link to="/" className="nav-link">Home</Link>
+                <Link to="/preferences" className="nav-link">Preferences</Link>
+                <Link to="/recommendations" className="nav-link">Recommendations</Link>
+                <Link to="/surprise" className="nav-link">Surprise Me</Link>
+                <Link to="/watchlist" className="nav-link">Watchlist</Link> 
+                {/* Dark Mode Toggle */}
                 <button
                     className="dark-mode-toggle"
                     onClick={() => setDarkMode((prevMode) => !prevMode)}
@@ -47,7 +48,7 @@ const Header = ({ onSort, onLanguageChange }) => {
                 <Sort onSort={onSort} />
                 <Search />
                 <div className="language-container">
-                    <label htmlFor="language-select">Language:</label>
+                    <label htmlFor="language-select" className="language-label">Language:</label>
                     <select
                         id="language-select"
                         onChange={handleLanguageChange}

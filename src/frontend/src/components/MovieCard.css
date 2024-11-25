@@ -96,4 +96,20 @@
     margin-top: 5px;
 }
 
+/* Add to Watchlist button styling */
+.add-to-watchlist-button {
+    background-color: #0073e6; /* Blue background */
+    color: white;
+    padding: 12px 20px; /* Bigger size */
+    font-size: 16px; /* Larger font */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+}
 
+.add-to-watchlist-button:hover {
+    background-color: #005bb5; /* Darker blue on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}

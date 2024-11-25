@@ -138,3 +138,25 @@ footer p {
     margin: 0;
     color: #f9c74f; /* Bright Yellow */
 }
+
+.success-message {
+    background-color: #28a745; /* Green background for success */
+    color: white; /* White text */
+    padding: 10px 15px;
+    margin: 10px auto;
+    text-align: center;
+    border-radius: 5px;
+    max-width: 600px;
+    font-size: 16px;
+    animation: fadeOut 3s forwards; /* Optional fade-out effect */
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
