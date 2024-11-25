@@ -18,7 +18,7 @@ const Login = ({ onLogin, movieListGet, movieListSet}) => {
             fetch("http://localhost:5000/login", {
             method : "post",
             body : formData,
-            // credentials : "include"
+            credentials : "include"
             
             })
             .then((response) => response.json())
