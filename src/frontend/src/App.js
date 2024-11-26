@@ -10,6 +10,7 @@ import CreateAccount from './CreateAccount';
 import SurpriseMe from './pages/SurpriseMe'; 
 import Watchlist from './pages/Watchlist'; 
 import SurpriseMeWithQuiz from './pages/Quiz';
+import SeasonalMovieQuiz from './pages/Seasonal';
 import './styles.css';
 
 const App = () => {
@@ -53,12 +54,12 @@ const App = () => {
                     <Route path="/preferences" element={<Preferences onSubmit={handlePreferencesSubmit} />} />
                     <Route path="/recommendations" element={<Recommendations preferences={preferences} language={selectedLanguage} />} />
                     <Route path="/surprise" element={<SurpriseMe preferences={preferences} language={selectedLanguage} />} />
-                    <Route path="/search" element={<SearchResults onAddToWatchlist={addToWatchlist} />} />
+                    <Route path="/search" element={<SearchResults movieListGet={movieList} movieListSet={handleSetMovies} />} />
                     <Route path="/movie/:title" element={<MovieDetails />} />
                     <Route path="/watchlist" element={<Watchlist watchlist={watchlist} />} />
-                    <Route path="*" element={<Navigate to="/" />} />
-                    <Route path="/search" element={<SearchResults movieListGet={movieList} movieListSet={handleSetMovies} onAddToWatchlist={addToWatchlist} />} />
+                    <Route path="*" element={<Navigate to="/" />} />                 
                     <Route path="/quiz" element={<SurpriseMeWithQuiz language={selectedLanguage} />} />
+                    <Route path="/seasonal" element={<SeasonalMovieQuiz language={selectedLanguage} />} />
                 </Routes>
             </div>
         </Router>
