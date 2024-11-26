@@ -12,6 +12,7 @@
 
 <!-- [![DOI](https://sandbox.zenodo.org/badge/720190225.svg)](https://sandbox.zenodo.org/doi/10.5072/zenodo.3401) [![Code Coverage](https://github.com/MadhurDixit13/MovieRecommender/actions/workflows/codecov.yml/badge.svg)](https://github.com/MadhurDixit13/MovieRecommender/actions/workflows/codecov.yml) [![codecov](https://codecov.io/gh/MadhurDixit13/MovieRecommender/graph/badge.svg?token=9NGWAJ7BST)] 
 (https://codecov.io/gh/MadhurDixit13/MovieRecommender) -->
+[![test](https://github.com/se-hw1/CineScoutp3/actions/workflows/test_and_coverage.yml/badge.svg)](https://github.com/se-hw1/CineScoutp3/actions/workflows/test_and_coverage.yml)
 
 # <b>Contents</b>
 
