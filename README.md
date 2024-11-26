@@ -10,7 +10,7 @@
 <a href="https://github.com/SoftwareEngg2024/CineScout/blob/ver_i/LICENSE.md"><img alt="License: MIT" src="https://img.shields.io/badge/Style_Checker-Pylance-green"></a>
 </p>
 
-<!-- [![DOI](https://sandbox.zenodo.org/badge/720190225.svg)](https://sandbox.zenodo.org/doi/10.5072/zenodo.3401) [![Code Coverage](https://github.com/MadhurDixit13/MovieRecommender/actions/workflows/codecov.yml/badge.svg)](https://github.com/MadhurDixit13/MovieRecommender/actions/workflows/codecov.yml) [![codecov](https://codecov.io/gh/MadhurDixit13/MovieRecommender/graph/badge.svg?token=9NGWAJ7BST)] 
+(https://github.com/MadhurDixit13/MovieRecommender/actions/workflows/codecov.yml/badge.svg)](https://github.com/MadhurDixit13/MovieRecommender/actions/workflows/codecov.yml) [![codecov](https://codecov.io/gh/MadhurDixit13/MovieRecommender/graph/badge.svg?token=9NGWAJ7BST)] 
 (https://codecov.io/gh/MadhurDixit13/MovieRecommender) -->
 [![test](https://github.com/se-hw1/CineScoutp3/actions/workflows/test_and_coverage.yml/badge.svg)](https://github.com/se-hw1/CineScoutp3/actions/workflows/test_and_coverage.yml)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14226722.svg)](https://doi.org/10.5281/zenodo.14226722)
