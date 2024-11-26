@@ -130,7 +130,7 @@ const GamifiedMovies = () => {
         <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
             <h1>Gamified Movie Journey</h1>
             <h2>Level: {levels}</h2>
-            <h3>Current Streak: {streak} movies</h3>
+            <h2>Current Streak: {streak} movies</h2>
 
             <div>
                 <h2>Your Badges</h2>
