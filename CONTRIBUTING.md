@@ -1,6 +1,6 @@
 ## Contributing:
 
-* If you would like to contribute and collaborate for this repository, then please intimate us through email at mskamat@ncsu.edu
+* If you would like to contribute and collaborate for this repository, then please intimate us through email at ntummal3@ncsu.edu .
 
 ## Purpose of Contributing:
 
@@ -18,7 +18,7 @@
 
 ## Code of Conduct:
 
-* Please go through the [Code of Conduct](https://github.com/MadhurDixit13/MovieRecommender/blob/master/CODE_OF_CONDUCT.md) before you begin contributing.
+* Please go through the [Code of Conduct](https://github.com/se-hw1/CineScoutp3/blob/newbr1/CODE_OF_CONDUCT.md) before you begin contributing.
 
 ## Pull Request Submission Guidelines
 
