@@ -12,6 +12,7 @@ import Watchlist from './pages/Watchlist';
 import SurpriseMeWithQuiz from './pages/Quiz';
 import SeasonalMovieQuiz from './pages/Seasonal';
 import './styles.css';
+import GamifiedMovies from './pages/Gamified';
 
 const App = () => {
     const [preferences, setPreferences] = useState([]);
@@ -60,6 +61,7 @@ const App = () => {
                     <Route path="*" element={<Navigate to="/" />} />                 
                     <Route path="/quiz" element={<SurpriseMeWithQuiz language={selectedLanguage} />} />
                     <Route path="/seasonal" element={<SeasonalMovieQuiz language={selectedLanguage} />} />
+                    <Route path="/game" element={<GamifiedMovies language={selectedLanguage}/> }/>
                 </Routes>
             </div>
         </Router>
