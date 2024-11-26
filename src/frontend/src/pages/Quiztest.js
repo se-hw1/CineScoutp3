@@ -20,3 +20,13 @@ describe('SurpriseMeWithQuiz Component', () => {
         expect(screen.getByText('Drama')).toBeInTheDocument();
         expect(screen.getByText('Sci-Fi')).toBeInTheDocument();
     });
+
+     it('advances to the next question after selecting an option', () => {
+     render(React.createElement(SurpriseMeWithQuiz));
+
+     // Click an option for the first question
+     fireEvent.click(screen.getByText('Action'));
+
+     // After clicking, the second question should appear
+     expect(screen.getByText('What mood are you in?')).toBeInTheDocument();
+    });
