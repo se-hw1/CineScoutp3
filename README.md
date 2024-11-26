@@ -80,7 +80,7 @@ Get into the spirit of each season with holiday-themed picks, from Halloween hor
 
 
 ## Requirements and Setup
-[Installation Instructions](https://github.com/SoftwareEngg2024/CineScout/blob/ver_i/INSTALL.md)
+[Installation Instructions](https://github.com/se-hw1/CineScoutp3/edit/newbr1/INSTALL.md)
 
 ## Documentation 
 Refer here [Wiki Page](https://github.com/SoftwareEngg2024/CineScout/wiki)
