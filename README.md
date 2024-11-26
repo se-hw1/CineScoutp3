@@ -49,6 +49,10 @@ Enjoy movie recommendations based on seasonal events like Halloween, Christmas, 
 
 Unlock badges and rewards as you explore new genres, complete challenges, or hit milestones like watching a specific number of films.
 
+**Friend-Suggested Content:**
+
+Share watchlists and movie recommendations with friends, creating a social movie discovery experience. Discuss and recommend films based on shared interests. Engage with each other's suggestions through comments and reviews.
+
 **Enhanced Security:**
 
 Experience improved account security with features like email verification and stronger password requirements to ensure your account is well-protected.
