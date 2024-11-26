@@ -29,7 +29,7 @@ const SurpriseMeWithQuiz = () => {
             key: 'year',
         },
         {
-            question: 'What’s your preferred movie duration?',
+            question: 'How long should the movie length be?',
             options: ['Short (Under 90 mins)', 'Medium (90-150 mins)', 'Long (Over 150 mins)'],
             key: 'duration',
         },
