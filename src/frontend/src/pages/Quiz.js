@@ -70,8 +70,7 @@ const SurpriseMeWithQuiz = () => {
     const handleAnswer = (option) => {
         setPreferences((prev) => {
             const updatedPreferences = { ...prev, [questions[quizStep].key]: option };
-            console.log('Updated Preferences:', updatedPreferences);
-
+           
             if (quizStep + 1 < questions.length) {
                 setQuizStep((prevStep) => prevStep + 1);
             } else {
