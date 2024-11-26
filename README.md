@@ -86,8 +86,15 @@ Get into the spirit of each season with holiday-themed picks, from Halloween hor
 ## Documentation 
 Refer here [Wiki Page](https://github.com/SoftwareEngg2024/CineScout/wiki)
 
-## Chat Channel
-Discord Invite - https://discord.gg/XE3Ragva
+## Team Members
+
+1. Navyatej Tummala (navyatej3112) [GitHub Profile](https://github.com/navyatej3112)
+2. Sasidhar Appalla  (sasidharappalla) [GitHub Profile](https://github.com/sasidharappalla)
+3. Niranjan Rajendran (Niranjan30) [GitHub Profile](https://github.com/Niranjan30)
+
+## Contribution
+
+Please refer the [CONTRIBUTING.md](https://github.com/se-hw1/CineScoutp3/blob/newbr1/CONTRIBUTING.md) file for instructions on how to contribute to our repository.
 
 ## Bug
 Raise an issue on this repository, we would love to look at it!
