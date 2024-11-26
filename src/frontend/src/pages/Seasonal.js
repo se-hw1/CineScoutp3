@@ -38,10 +38,7 @@ const SeasonalMovieQuiz = () => {
 
             const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&include_adult=false&with_genres=${genre}&primary_release_date.gte=${yearRange.min}-01-01&primary_release_date.lte=${yearRange.max}-12-31&with_original_language=en&sort_by=popularity.desc`;
 
-            console.log("Generated API URL:", url);
-
             const response = await axios.get(url);
-            console.log("API Response:", response.data);
 
             if (response.data.results && response.data.results.length > 0) {
                 const randomMovie = response.data.results[Math.floor(Math.random() * response.data.results.length)];
@@ -50,7 +47,6 @@ const SeasonalMovieQuiz = () => {
                 setError('No suitable movies found.');
             }
         } catch (err) {
-            console.error("Error details:", err);
             setError('Error fetching seasonal movies.');
         }
     };
@@ -59,7 +55,6 @@ const SeasonalMovieQuiz = () => {
     const handleAnswer = (option) => {
         setPreferences((prev) => {
             const updatedPreferences = { ...prev, [questions[quizStep].key]: option };
-            console.log('Updated Preferences:', updatedPreferences);
 
             if (quizStep + 1 < questions.length) {
                 setQuizStep((prevStep) => prevStep + 1);
