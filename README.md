@@ -1,7 +1,6 @@
 <p align="center">
 <h1 align="center"><i>CineScout</i></h1>
 
-<a href="https://github.com/SoftwareEngg2024/CineScout/actions"><img alt="Actions Status" src="https://github.com/SoftwareEngg2024/CineScout/workflows/test/badge.svg"></a>
 <a href="https://softwareengg2024.github.io/CineScout"><img alt="Documentation Status" src="https://img.shields.io/badge/Docs-pydoc-green"></a>
 <a href='https://coveralls.io/github/SoftwareEngg2024/CineScout?branch=ver_i'><img src='https://coveralls.io/repos/github/SoftwareEngg2024/CineScout/badge.svg?branch=ver_i' alt='Coverage Status' /></a>
 <a href="https://github.com/SoftwareEngg2024/CineScout/blob/ver_i/LICENSE.md"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green"></a>
