@@ -30,42 +30,50 @@
 ## Introduction 
 Welcome to **CineScout**! 🍿✨ 
 
-**CineScout** is a **movie recommendation system** designed to make finding your next favorite film effortless and enjoyable. With CineScout, you can uncover movies perfectly tailored to your taste, whether you're in the mood for an all-time classic 🌟, a hidden gem 💎, or something new and exciting 🎉. This **enhanced version** of CineScout offers an expanded range of features that make it easy to customize your search and discover your perfect picks.
+**CineScout** is a personalized movie recommendation engine designed to enhance your viewing experience by analyzing your preferences and watch history. By examining factors such as genres, actors, directors, and themes you enjoy, it tailors suggestions that align with your unique tastes. The engine also tracks your watch history, including completed movies and ratings, allowing it to refine its recommendations over time, ensuring they are always relevant. This personalized approach helps users discover new films they might not have come across on their own, based on their viewing patterns.
 
-Choose from a wide range of **genres** 🎭, select your **preferred language** 🎭🌍, and fine-tune your results using the **Sort feature** to organize movies by rating, release year, or genre. Feeling adventurous? Hit the **Surprise Me** button 🎲 for a handpicked, random recommendation that might just become a new favorite! For those with something specific in mind, the **Search** 🔍 feature allows you to locate titles or explore films from across languages and countries.
+The engine not only suggests popular films but also introduces new movies you may have overlooked, helping you discover hidden gems. As you continue to interact with CineScout, it learns from your choices and adapts, making each recommendation more accurate. The seamless integration with various streaming platforms and media players ensures that you can effortlessly explore new titles, while also allowing for user feedback to further refine the suggestions, ensuring a more engaging and personalized movie-watching experience.
 
 CineScout has everything you need to make movie night a breeze—so let’s dive in and start finding your perfect picks! 🌟
 
 ## 🌟 New Features 🌟
-**🔄 TMDb based Suggestions:**
-Get real-time movie recommendations! CineScout now analyzes your watch history to provide personalized suggestions based on up-to-date data from The Movie Database (TMDb).
+**Interactive Quizzes:**
 
-**🎲 "Surprise Me" Feature:**
-Expand your horizons! With the "Surprise Me" feature, CineScout offers recommendations from genres you rarely explore, helping you discover hidden gems and broaden your movie preferences.
+Engage in fun, personalized quizzes designed to analyze your preferences and provide tailored movie recommendations that suit your taste.
 
-**⚙️ Enhanced User Interface with React:**
-Customizable preferences at your fingertips! Our revamped UI, built with React, allows for seamless navigation and easy refinement of your movie preferences, all within a sleek and intuitive design.
+**Seasonal Suggestions:**
 
-**🔍 Search by Year:**
-Find exactly what you’re looking for! You can now search for movies by title and sort them by release year, giving you greater control over your movie discovery process.
+Enjoy movie recommendations based on seasonal events like Halloween, Christmas, or summer blockbusters, ensuring the perfect match for your mood and the occasion.
+
+**Gamified Movie-Watching:**
+
+Unlock badges and rewards as you explore new genres, complete challenges, or hit milestones like watching a specific number of films.
+
+**Enhanced Security:**
+
+Experience improved account security with features like email verification and stronger password requirements to ensure your account is well-protected.
+
+**Watchlist Feature:**
+
+Create a personalized watchlist to save your favorite movies, making it easy to revisit or watch them later without losing track.
 
 ## Future Scope🚀
 
-**Friend-Suggested Content 🤝:**
+**Push Notifications:**
 
-Imagine discovering movies recommended by friends! With this feature, you could see what your friends are watching, rate and recommend films, and even plan movie nights together.
+Stay updated with personalized alerts about new releases, additions to your favorite genres, or changes to your watchlist in real time.
 
-**Gamified Movie-Watching 🎮:**
+**Search History:**
 
-Make movie-watching more fun and rewarding! Earn badges for genres, levels for watching streaks, and special rewards for exploring new types of films. CineScout could turn movie-watching into an engaging journey!
+Access a comprehensive history of your past searches, enabling you to quickly revisit movies or genres you explored previously.
 
-**Interactive Quizzes 📝:**
+**Integration with Streaming Services:**
 
-Take quizzes to help CineScout better understand your tastes! Discover your "Movie Personality" or find films based on your mood, with personalized suggestions that adapt as you explore.
+Seamlessly find where movies are available to stream, making it convenient to enjoy your favorites without switching platforms.
 
-**Seasonal Suggestions 🎃🎄:**
+**Profile Customization:**
 
-Get into the spirit of each season with holiday-themed picks, from Halloween horrors to cozy Christmas classics. Seasonal movie suggestions would add an extra layer of excitement to your viewing experience!
+Personalize your profile by uploading avatars, setting preferences, and curating a unique user experience tailored to your style.
 
 ## Check out our enhancements!
 
@@ -83,8 +91,6 @@ Get into the spirit of each season with holiday-themed picks, from Halloween hor
 ## Requirements and Setup
 [Installation Instructions](https://github.com/se-hw1/CineScoutp3/edit/newbr1/INSTALL.md)
 
-## Documentation 
-Refer here [Wiki Page](https://github.com/SoftwareEngg2024/CineScout/wiki)
 
 ## Team Members
 
