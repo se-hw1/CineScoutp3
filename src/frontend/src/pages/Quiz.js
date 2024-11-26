@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+
 import './Quiz.css';
 
-const SurpriseMeWithQuiz = ({ language }) => {
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const SurpriseMeWithQuiz = () => {
+    // State Management
     const [quizStep, setQuizStep] = useState(0);
     const [preferences, setPreferences] = useState({});
     const [surpriseMovie, setSurpriseMovie] = useState(null);
     const [error, setError] = useState(null);
 
-    // Quiz questions
+    // Quiz Questions
     const questions = [
         {
             question: 'What genre do you prefer?',
@@ -27,9 +30,11 @@ const SurpriseMeWithQuiz = ({ language }) => {
         },
     ];
 
+    // Fetch a Surprise Movie
     const fetchSurpriseMovie = async (currentPreferences) => {
         try {
             setError(null); // Clear previous errors
+
             const genreMap = {
                 Action: 28,
                 Comedy: 35,
@@ -45,7 +50,9 @@ const SurpriseMeWithQuiz = ({ language }) => {
                 '2020-Present': { min: 2020, max: new Date().getFullYear() },
             }[currentPreferences.year];
 
-            const url = `https://api.themoviedb.org/3/discover/movie?api_key=553e58f2e00ea880760f32eb9549e073&include_adult=false&with_genres=${genre}&primary_release_date.gte=${yearRange.min}-01-01&primary_release_date.lte=${yearRange.max}-12-31&with_original_language=${language}&sort_by=popularity.desc`;
+            const apiKey = '553e58f2e00ea880760f32eb9549e073';
+            const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&include_adult=false&with_genres=${genre}&primary_release_date.gte=${yearRange.min}-01-01&primary_release_date.lte=${yearRange.max}-12-31&with_original_language=en&sort_by=popularity.desc`;
+           
 
             const response = await axios.get(url);
             if (response.data.results && response.data.results.length > 0) {
@@ -55,27 +62,29 @@ const SurpriseMeWithQuiz = ({ language }) => {
                 setError('No suitable movies found.');
             }
         } catch (err) {
+      
             setError('Error fetching a surprise movie.');
         }
     };
 
+    // Handle Answer Selection
     const handleAnswer = (option) => {
-        const updatedPreferences = {
-            ...preferences,
-            [questions[quizStep].key]: option,
-        };
+        setPreferences((prev) => {
+            const updatedPreferences = { ...prev, [questions[quizStep].key]: option };
+            console.log('Updated Preferences:', updatedPreferences);
 
-        setPreferences(updatedPreferences);
+            if (quizStep + 1 < questions.length) {
+                setQuizStep((prevStep) => prevStep + 1);
+            } else {
+                fetchSurpriseMovie(updatedPreferences);
+                setQuizStep(questions.length);
+            }
 
-        if (quizStep < questions.length - 1) {
-            // Move to the next question
-            setQuizStep(quizStep + 1);
-        } else {
-            // Fetch the surprise movie once the quiz is complete
-            fetchSurpriseMovie(updatedPreferences);
-        }
+            return updatedPreferences;
+        });
     };
 
+    // Reset Quiz
     const resetQuiz = () => {
         setQuizStep(0);
         setPreferences({});
@@ -84,17 +93,25 @@ const SurpriseMeWithQuiz = ({ language }) => {
     };
 
     return (
-        <div className="surprise-container">
+        <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
             <h2>Surprise Movie Quiz</h2>
             {quizStep < questions.length ? (
-                <div className="quiz-container">
+                <div>
                     <h3>{questions[quizStep].question}</h3>
-                    <div className="quiz-options">
+                    <div>
                         {questions[quizStep].options.map((option, index) => (
                             <button
                                 key={index}
                                 onClick={() => handleAnswer(option)}
-                                className="quiz-option"
+                                style={{
+                                    margin: '5px',
+                                    padding: '10px',
+                                    backgroundColor: '#007BFF',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '5px',
+                                    cursor: 'pointer',
+                                }}
                             >
                                 {option}
                             </button>
@@ -104,36 +121,35 @@ const SurpriseMeWithQuiz = ({ language }) => {
             ) : (
                 <div>
                     {error ? (
-                        <div className="error-message">{error}</div>
+                        <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>
+                    ) : surpriseMovie ? (
+                        <div>
+                            <h3>Your Surprise Movie:</h3>
+                            <p><strong>Title:</strong> {surpriseMovie.title}</p>
+                            <p><strong>Release Date:</strong> {surpriseMovie.release_date}</p>
+                            <p><strong>Overview:</strong> {surpriseMovie.overview}</p>
+                            <p><strong>Rating:</strong> {surpriseMovie.vote_average}</p>
+                            <img
+                                src={`https://image.tmdb.org/t/p/w500/${surpriseMovie.poster_path}`}
+                                alt={surpriseMovie.title}
+                                style={{ maxWidth: '200px', margin: '10px 0' }}
+                            />
+                            <button
+                                onClick={resetQuiz}
+                                style={{
+                                    padding: '10px',
+                                    backgroundColor: '#28A745',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '5px',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                Retake Quiz
+                            </button>
+                        </div>
                     ) : (
-                        surpriseMovie && (
-                            <div className="movie-details-container">
-                                <div className="movie-poster">
-                                    <img
-                                        src={`https://image.tmdb.org/t/p/w500/${surpriseMovie.poster_path}`}
-                                        alt={surpriseMovie.title}
-                                    />
-                                </div>
-                                <div className="movie-content">
-                                    <h3>{surpriseMovie.title}</h3>
-                                    <p>
-                                        <strong>Release Date:</strong>{' '}
-                                        {surpriseMovie.release_date}
-                                    </p>
-                                    <p>
-                                        <strong>Overview:</strong>{' '}
-                                        {surpriseMovie.overview}
-                                    </p>
-                                    <p>
-                                        <strong>Rating:</strong>{' '}
-                                        {surpriseMovie.vote_average}
-                                    </p>
-                                    <button className="watch-button" onClick={resetQuiz}>
-                                        Retake Quiz
-                                    </button>
-                                </div>
-                            </div>
-                        )
+                        <p>Loading your surprise movie...</p>
                     )}
                 </div>
             )}
@@ -142,3 +158,4 @@ const SurpriseMeWithQuiz = ({ language }) => {
 };
 
 export default SurpriseMeWithQuiz;
+
