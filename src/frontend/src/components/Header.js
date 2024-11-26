@@ -36,6 +36,7 @@ const Header = ({ onSort, onLanguageChange }) => {
                 <Link to="/recommendations" className="nav-link">Recommendations</Link>
                 <Link to="/surprise" className="nav-link">Surprise Me</Link>
                 <Link to="/watchlist" className="nav-link">Watchlist</Link> 
+                <Link to="/quiz">Quiz</Link>
                 {/* Dark Mode Toggle */}
                 <button
                     className="dark-mode-toggle"

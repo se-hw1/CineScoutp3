@@ -1,5 +1,10 @@
 /* General styles for the Surprise Me page */
 .surprise-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Ensure full viewport height */
     padding: 20px;
     text-align: center;
     border-radius: 10px;
@@ -20,8 +25,10 @@ body.dark-mode .surprise-container {
 
 .movie-details-container {
     display: flex;
+    flex-direction: column; /* Stack poster and content vertically */
     align-items: center;
     justify-content: center;
+    text-align: center;
     border-radius: 10px;
     padding: 20px;
     margin: 20px auto;
@@ -44,11 +51,11 @@ body.dark-mode .movie-details-container {
 .movie-poster img {
     border-radius: 10px;
     max-width: 200px;
-    margin-right: 20px;
+    margin-bottom: 20px; /* Add space between poster and content */
 }
 
 .movie-content {
-    text-align: left;
+    text-align: center; /* Center-align text for better readability */
 }
 
 .movie-title {
@@ -91,6 +98,7 @@ body.dark-mode .movie-overview {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin: 10px 5px; /* Add spacing between buttons */
 }
 
 .watch-button:hover, .surprise-button:hover {

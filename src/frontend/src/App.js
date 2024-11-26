@@ -8,7 +8,8 @@ import SearchResults from './pages/SearchResults';
 import MovieDetails from './pages/MovieDetails';
 import CreateAccount from './CreateAccount'; 
 import SurpriseMe from './pages/SurpriseMe'; 
-import Watchlist from './pages/Watchlist'; // Import the Watchlist component
+import Watchlist from './pages/Watchlist'; 
+import SurpriseMeWithQuiz from './pages/Quiz';
 import './styles.css';
 
 const App = () => {
@@ -57,7 +58,7 @@ const App = () => {
                     <Route path="/watchlist" element={<Watchlist watchlist={watchlist} />} />
                     <Route path="*" element={<Navigate to="/" />} />
                     <Route path="/search" element={<SearchResults movieListGet={movieList} movieListSet={handleSetMovies} onAddToWatchlist={addToWatchlist} />} />
-
+                    <Route path="/quiz" element={<SurpriseMeWithQuiz language={selectedLanguage} />} />
                 </Routes>
             </div>
         </Router>
