@@ -1,8 +1,7 @@
-
 import './Quiz.css';
-
 import React, { useState } from 'react';
 import axios from 'axios';
+import MovieCard from '../components/MovieCard';
 
 const SurpriseMeWithQuiz = () => {
     // State Management
