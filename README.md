@@ -15,7 +15,7 @@
 
 # <b>Contents</b>
 
-- [Introduction](https://github.com/SoftwareEngg2024/CineScout/tree/newbr1?tab=readme-ov-file#introduction)<br>
+- [Introduction](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#introduction)<br>
 - [New Features](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#-new-features-)
 - [Future Scope](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#future-scope)<br>
 - [Video](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#video)<br>
