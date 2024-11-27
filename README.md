@@ -11,6 +11,8 @@
 [![test](https://github.com/se-hw1/CineScoutp3/actions/workflows/test_and_coverage.yml/badge.svg)](https://github.com/se-hw1/CineScoutp3/actions/workflows/test_and_coverage.yml)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14226722.svg)](https://doi.org/10.5281/zenodo.14226722)
 [![codecov](https://codecov.io/gh/navyatej3112/CineScout/graph/badge.svg?token=XICF9B2DY5)](https://codecov.io/gh/navyatej3112/CineScout)
+![Pytest](https://img.shields.io/badge/pytest-passing-brightgreen)
+
 
 
 
