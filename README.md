@@ -49,7 +49,7 @@ Unlock badges and rewards as you explore new genres, complete challenges, or hit
 
 **Friend-Suggested Content:**
 
-Share watchlists and movie recommendations with friends, creating a social movie discovery experience. Discuss and recommend films based on shared interests. Engage with each other's suggestions through comments and reviews.
+See what movies your friends are watching and the past movies that they watched. Rate the movies that your friends have watched and share movie recommendations with friends, creating a social movie discovery experience. Plan movie nights with your friends as well. 
 
 **Enhanced Security:**
 
