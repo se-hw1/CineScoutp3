@@ -10,7 +10,7 @@
 
 [![test](https://github.com/se-hw1/CineScoutp3/actions/workflows/test_and_coverage.yml/badge.svg)](https://github.com/se-hw1/CineScoutp3/actions/workflows/test_and_coverage.yml)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14226722.svg)](https://doi.org/10.5281/zenodo.14226722)
-![Pylint](https://github.com/sasidharapalla/CineScoutp3/actions/workflows/pylint.yml/badge.svg)
+[![Pylint](https://github.com/sasidharapalla/CineScoutp3/actions/workflows/pylint.yml/badge.svg)](https://github.com/se-hw1/CineScoutp3/actions/workflows/pylint.yml)
 
 
 
