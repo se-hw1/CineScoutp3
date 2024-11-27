@@ -27,7 +27,7 @@ jobs:
 
     - name: Run tests with coverage
       run: |
-        pytest --cov=CineScoutp3
+        pytest --cov=src
 
     - name: Upload coverage to Codecov
       env:
