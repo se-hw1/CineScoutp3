@@ -23,7 +23,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pylint
+        # Install project-specific dependencies if `requirements.txt` exists
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Run Pylint
       run: |
-        pylint app.py
+        # Lint the whole repository
+        pylint . --exit-zero --output-format=colorized
