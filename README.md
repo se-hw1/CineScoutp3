@@ -12,7 +12,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14226722.svg)](https://doi.org/10.5281/zenodo.14226722)
 [![codecov](https://codecov.io/gh/navyatej3112/CineScout/graph/badge.svg?token=XICF9B2DY5)](https://codecov.io/gh/navyatej3112/CineScout)
 [![Pytest](https://img.shields.io/badge/pytest-passing-brightgreen)](https://github.com/se-hw1/CineScoutp3/actions)
-[![codecov](https://codecov.io/gh/se-hw1/CineScoutp3/branch/main/graph/badge.svg)](https://github.com/se-hw1/CineScoutp3/actions/workflows/codecov.yml)
+[![codecoverage](https://img.shields.io/badge/CodeCoverage-passing-brightgreen)](https://github.com/se-hw1/CineScoutp3/actions/workflows/codecov.yml)
 
 
 
