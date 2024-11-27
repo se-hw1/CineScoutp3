@@ -14,19 +14,6 @@
 
 
 
-# <b>Contents</b>
-
-- [Introduction](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#introduction)<br>
-- [New Features](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#-new-features-)
-- [Future Scope](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#future-scope)<br>
-- [Video](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#video)<br>
-- [Tech Stack](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#tech-stack)<br>
-- [Requirements and Setup](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#requirements-and-setup)<br>
-- [Documentation](https://github.com/SoftwareEngg2024/CineScout/wiki)<br>
-- [Bug](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#bug)<br>
-- [License](https://github.com/SoftwareEngg2024/CineScout/tree/ver_i?tab=readme-ov-file#license-)
-
-
 ## Introduction 
 Welcome to **CineScout**! 🍿✨ 
 
@@ -85,11 +72,10 @@ Personalize your profile by uploading avatars, setting preferences, and curating
 
 ## Check out our enhancements!
 
-[**Comparison**](https://drive.google.com/file/d/1398eGDBceTI8XGtgwhwj8XWo6CRAhphR/view?usp=sharing) <br>
-
-[**Demo**](https://drive.google.com/file/d/1EVkJBBIjKMmsH0sBl7V_cWwRzyxohqPx/view?usp=drive_link)
+[**Demo**](https://www.youtube.com/watch?v=Q_KPwbQzzXg)
 
 ## Tech Stack 
+
 - React JS
 - Python
 - Flask
