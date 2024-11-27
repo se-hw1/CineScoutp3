@@ -53,9 +53,13 @@ Unlock badges and rewards as you explore new genres, complete challenges, or hit
 
 See what movies your friends are watching and the past movies that they watched. Rate the movies that your friends have watched and share movie recommendations with friends, creating a social movie discovery experience. Plan movie nights with your friends as well. 
 
-**Enhanced Security:**
+**Enhanced Password Security:**
 
-Experience improved account security with features like email verification and stronger password requirements to ensure your account is well-protected.
+Strengthen account security with password strength checks, ensuring users create strong and secure passwords. 
+
+**Theme Customization: Light & Dark Modes:**
+
+Switch between light and dark modes for a more comfortable viewing experience, allowing users to choose the theme that suits their preferences and lighting conditions. Enjoy a personalized visual experience that adapts to your environment and mood.
 
 **Watchlist Feature:**
 
